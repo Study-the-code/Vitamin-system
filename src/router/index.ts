@@ -1,11 +1,10 @@
-
-
+//路由
 const routes = [
     {
         path: '/',
-        name: 'home',
-        component: () => import('@/views/home/index.vue')
+        redirect:"/home"
     },
+  
     {
         path:'/home',
         name:'home',
