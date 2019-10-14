@@ -29,28 +29,28 @@
             @on-select="choosedMenu"
             v-if="!isCollapsed"
           >
-            <template v-for="(menu,menu_index) in menus">
-              <Submenu :name="menu.name" v-if="menu.children" :key="menu_index">
+            <template v-for="(menu,menu_index) in menuData">
+              <Submenu :name="menu.name" v-if="menu._data.length" :key="menu_index">
                 <template slot="title">
                   <Icon :size="20" :type="menu.icon"></Icon>
-                  {{menu.title}}
+                  {{menu.name}}
                 </template>
                 <MenuItem
-                  :name="child.name"
-                  v-for="(child ,child_index) in menu.children"
+                  :name="child._data"
+                  v-for="(child ,child_index) in menu._data"
                   :key="child_index"
                 >
                   <Icon :size="20" :type="child.icon"></Icon>
-                  {{child.title}}
+                  {{child.name}}
                 </MenuItem>
               </Submenu>
               <MenuItem
                 :name="menu.name"
-                v-if="!menu.children && menu.showInMenus"
+                 v-if="!menu._data.length"
                 :key="menu.name"
               >
                 <Icon :size="20" :type="menu.icon"></Icon>
-                {{menu.title}}
+                {{menu.name}}
               </MenuItem>
             </template>
           </Menu>
@@ -123,7 +123,6 @@
                   type="md-menu"
                   size="24"
                 ></Icon>
-                <span style="font-size:18px;font-weight:bold">后台管理系统</span>
               </div>
               <div style="margin-right:20px">
                 <!-- <Button type="text" icon="person" size="large">个人中心</Button>
@@ -133,12 +132,12 @@
             </div>
             <div
               style="display: flex;
-                                position: relative;
-                                padding-left:10px;
-                                height: 40px;
-                                background: #f5f7f9;
-                                align-items: center;
-                                box-shadow: 0 2px 1px 1px rgba(100, 100, 100, 0.1);"
+                     position: relative;
+                     padding-left:10px;
+                     height: 40px;
+                     background: #f5f7f9;
+                     align-items: center;
+                     box-shadow: 0 2px 1px 1px rgba(100, 100, 100, 0.1);"
             >
               <template>div</template>
             </div>
@@ -164,7 +163,7 @@
   </section>
 </template>
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState,mapMutations } from "vuex";
 
 export default {
   data() {
@@ -172,6 +171,7 @@ export default {
       isCollapsed: false,
       // ------------------------------  菜单操作开始  --------------------------------
       openMenuName: [],
+      activeMenuName:'',
       menus: [
         {
           title: "首页",
@@ -209,7 +209,7 @@ export default {
               showInMenus: true,
               choosed: false
             },
-              {
+            {
               title: "专柜导航管理",
               name: "classroom-manage",
               icon: "erlenmeyer-flask",
@@ -253,7 +253,7 @@ export default {
               showInMenus: true,
               choosed: false
             },
-             {
+            {
               title: "店铺订单",
               name: "classroom-manage",
               icon: "erlenmeyer-flask",
@@ -279,7 +279,7 @@ export default {
           title: "团队",
           name: "apk-manage",
           icon: "social-android",
-         children: [
+          children: [
             {
               title: "导购管理",
               name: "classroom-manage",
@@ -308,7 +308,8 @@ export default {
   },
   computed: {
     ...mapState({
-      user: state => state.user
+      user: state => state.user,
+      menuData: state => state.menu.menuData
     }),
     // 筛选menus中选中的menu
     tags() {
@@ -383,8 +384,15 @@ export default {
     });
   },
   // ------------------------------  菜单操作结束  --------------------------------
+async mounted(){
+   let type={type:2}
+  await this.getMenuData(type);
+  console.log(this.menuData)
+ },
   methods: {
-    ...mapActions(["logout"]),
+   ...mapActions({
+      getMenuData: "menu/getMenuData",
+    }),
     quit() {
       this.logout();
       localStorage.removeItem("token");
@@ -493,7 +501,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.ivu-menu::-webkit-scrollbar { width: 0 !important }
+.ivu-menu::-webkit-scrollbar {
+  width: 0 !important;
+}
 .logo img {
   width: 30px;
 }
@@ -505,16 +515,15 @@ export default {
   display: flex;
   align-items: center;
 }
-.ivu-menu{
-     overflow-x: hidden;
-     overflow-y: scroll;
+.ivu-menu {
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 .ivu-layout.ivu-layout-has-sider {
   height: 100%;
 }
-.ivu-menu-item{
-    width: 100%;
-   
+.ivu-menu-item {
+  width: 100%;
 }
 .ivu-layout-sider {
   background: #fff;
