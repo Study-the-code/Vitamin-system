@@ -61,9 +61,9 @@
           ></Icon>
         </Header>
         <Breadcrumb :style="{margin: '20px 0'}">
-          <BreadcrumbItem>Home</BreadcrumbItem>
-          <BreadcrumbItem>Components</BreadcrumbItem>
-          <BreadcrumbItem>Layout</BreadcrumbItem>
+          <BreadcrumbItem>维他命商城后台</BreadcrumbItem>
+          <BreadcrumbItem>页面</BreadcrumbItem>
+          <BreadcrumbItem>页面管理</BreadcrumbItem>
         </Breadcrumb>
         <Content :style="{margin: '20px', background: '#fff', minHeight: '260px'}">
           <router-view />
@@ -85,16 +85,13 @@ export default {
     },
     menuitemClasses() {
       return ["menu-item", this.isCollapsed ? "collapsed-menu" : ""];
-    }
+    },
   },
   methods: {
     collapsedSider() {
       this.$refs.side1.toggleCollapse();
     },
-    goups() {
-      console.log("123");
-    }
-  }
+  },
 };
 </script>
 <style lang='scss' scoped>
