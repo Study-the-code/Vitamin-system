@@ -71,8 +71,10 @@ export default {
         },
         methods: {
             yelishi(){
-                console.log('yelishi');
-                this.$router.push({path: '/home/management/managementAdd'})
+               
+                // this.$router.push({path: '/home/management/managementAdd'})
+                this.$router.push('/home/managementAdd')
+                 console.log(this.$router);
             }
         },
     }

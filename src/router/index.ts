@@ -17,12 +17,12 @@ const routes = [
         },{
             path:'/home/management',
             name:'management',
-            component:()=>import ('@/views/management/index.vue')
-            // children:[{
-            //     path:'/home/management/managementAdd',
-            //     name:'managementAdd',
-            //     component:()=>import('@/views/management/managementAdd/index.vue')
-            // }]
+            component:()=>import ('@/views/management/index.vue'),
+            
+        },{
+            path:'/home/managementAdd',
+            name:'managementAdd',
+            component:( )=> import('@/views/managementAdd/index.vue')
         }]
     }
 ]
