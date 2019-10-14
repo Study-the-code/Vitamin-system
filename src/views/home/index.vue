@@ -23,7 +23,7 @@
             ref="side_menu"
             :active-name="activeMenuName"
             :open-names="openMenuName"
-            theme="dark"
+            theme="light"
             width="auto"
             :class="menuitemClasses"
             @on-select="choosedMenu"
@@ -123,11 +123,10 @@
                   type="md-menu"
                   size="24"
                 ></Icon>
-                <span style="font-size:18px;font-weight:bold">后台管理系统</span>
               </div>
-              <div style="margin-right:20px">
+              <div style="margin-righxt:20px">
                 <!-- <Button type="text" icon="person" size="large">个人中心</Button>
-                <Button type="text" icon="android-notifications" size="large" @click="clickNotice">消息通知</Button>-->
+                <Button type="text" icon="android-notifications" size="large" @click="clickNotice">消息通知</Button> -->
                 <Button type="text" icon="android-exit" size="large" @click="quit">退出系统</Button>
               </div>
             </div>
@@ -140,7 +139,13 @@
                                 align-items: center;
                                 box-shadow: 0 2px 1px 1px rgba(100, 100, 100, 0.1);"
             >
-              <template>div</template>
+              <template>
+                 <Breadcrumb :style="{margin: '24px 0'}">
+                        <BreadcrumbItem>Home</BreadcrumbItem>
+                        <BreadcrumbItem>Components</BreadcrumbItem>
+                        <BreadcrumbItem>Layout</BreadcrumbItem>
+                    </Breadcrumb>
+              </template>
             </div>
           </Header>
           <Content
@@ -155,7 +160,10 @@
           >
             <!--保存组件状态到内存，避免重新渲染-->
             <keep-alive>
-              <router-view />
+              <transition name="fade" mode="out-in" appear>
+                <router-view />
+              </transition>
+
             </keep-alive>
           </Content>
         </Layout>
@@ -177,8 +185,8 @@ export default {
           title: "首页",
           num: 1,
           name: "admin",
-          icon: "home",
-          href: "/admin",
+          icon: "ios-bookmarks",
+          href: "/",
           closable: false,
           showInTags: true,
           showInMenus: true,
@@ -187,8 +195,8 @@ export default {
         {
           title: "概况",
           name: "course-manage",
-          icon: "ios-bookmarks",
-          href: "/admin",
+          icon: "ios-stats",
+          href: "/home/shop",
           closable: false,
           showInTags: true,
           showInMenus: true,
@@ -201,9 +209,9 @@ export default {
           children: [
             {
               title: "店铺管理",
-              name: "classroom-manage",
+              name: "business",
               icon: "erlenmeyer-flask",
-              href: "/admin/classroom",
+              href: "/home/business",
               closable: true,
               showInTags: false,
               showInMenus: true,
@@ -211,9 +219,9 @@ export default {
             },
               {
               title: "专柜导航管理",
-              name: "classroom-manage",
+              name: "navigation",
               icon: "erlenmeyer-flask",
-              href: "/admin/classroom",
+              href: "/home/navigation",
               closable: true,
               showInTags: false,
               showInMenus: true,
@@ -488,7 +496,7 @@ export default {
       this.choosedMenu(name);
     }
     // ------------------------------  菜单操作结束  --------------------------------
-  }
+  },
 };
 </script>
 
