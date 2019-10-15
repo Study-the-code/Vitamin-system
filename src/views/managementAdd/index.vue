@@ -133,5 +133,10 @@ export default {
 .bg-white {
     background: #fff;
 }
+h3 {
+    height: 40px;
+    line-height: 40px;
+    padding-left: 16px;
+}
 
 </style>
