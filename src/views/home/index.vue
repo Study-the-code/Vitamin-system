@@ -37,7 +37,7 @@
                 </template>
                 <MenuItem
                   :name="child.name"
-                  v-for="(child ,child_index) in menu._data"
+                  v-for="(child,child_index) in menu._data"
                   :key="child_index"
                 >
                   <Icon :size="16" :type="child.icon"></Icon>
@@ -51,7 +51,7 @@
             </template>
           </Menu>
           <div class="dropdown-wrap">
-            <template v-for="(menu,menu_index) in menus">
+            <template v-for="(menu,menu_index) in menuData">
               <Dropdown
                 transfer
                 placement="right-start"
@@ -59,15 +59,12 @@
                 @on-click="dropdownClick"
                 :key="menu_index"
               >
-                <Button style="width: 85px;margin-left: -5px;padding:10px 0;" type="text">
-                  <Icon :size="25" color="#fff" :type="menu.icon"></Icon>
-                </Button>
                 <DropdownMenu style="width: 200px;" slot="list">
-                  <template v-for="(child, i) in menu._data">
-                    <DropdownItem :name="child.title" :key="i">
+                  <template>
+                    <DropdownItem :name="child.name">
                       <div style="display:flex;align-items:center;">
-                        <Icon :size="16" :type="child.icon"></Icon>
-                        <span style="padding-left:10px;">{{ child.title }}</span>
+                        <Icon :size="20" type="md-list"></Icon>
+                        <span style="padding-left:10px;">{{ child.name }}</span>
                       </div>
                     </DropdownItem>
                   </template>
@@ -75,12 +72,14 @@
               </Dropdown>
               <Dropdown placement="right-start" :key="menu.name">
                 <Button style="width: 85px;margin-left: -5px;padding:10px 0;" type="text">
-                  <Icon :size="25" color="#fff" :type="menu.icon"></Icon>
+                  <Icon :size="25" color="#fff" type="md-list" v-if="menu._data.length"></Icon>
+                   <Icon :size="25" color="#fff" type="ios-paper" v-else></Icon>
                 </Button>
                 <DropdownMenu style="width: 200px;" slot="list">
                   <DropdownItem :name="menu.name">
                     <div style="display:flex;align-items:center;">
-                      <Icon :size="16" :type="menu.icon"></Icon>
+                      <Icon :size="16"  type="md-list" v-if="menu._data.length"></Icon>
+                      <Icon :size="16"  type="ios-paper" v-else></Icon>
                       <span style="padding-left:10px;">{{ menu.name }}</span>
                     </div>
                   </DropdownItem>
@@ -555,7 +554,6 @@ export default {
     background: #fff;
   }
   .layout-logo-left {
-    width: 90%;
     height: 30px;
     background: #5b6270;
     border-radius: 3px;
