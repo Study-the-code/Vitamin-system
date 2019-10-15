@@ -9,7 +9,7 @@
           </div>
 
           <div class="bottom">
-            <Table :columns="columns1" :data="data1"></Table>
+            <Table :columns="columns1" :data="storelist"></Table>
           </div>
         </TabPane>
         <TabPane label="e店铺" name="name2">
@@ -36,6 +36,7 @@
 <script>
 
 import myselect from "@/components/common/select";
+import { mapState, mapActions } from "vuex";
 // import "./index.scss";
 export default {
   name: "about",
@@ -53,7 +54,7 @@ export default {
         },
         {
           title: "楼层",
-          key: "age"
+          key: "floor_name"
         },
         {
           title: "位置",
@@ -61,19 +62,20 @@ export default {
         },
         {
           title: "所属分类",
-          key: "clouse"
+          key: "category_data",
+          
         },
         {
           title: "店长",
-          key: "manager"
+          key: "shop_manager"
         },
         {
           title: "楼管",
-          key: "residential"
+          key: "building"
         },
         {
           title: "状态",
-          key: "static"
+          key: "status_str"
         },
         {
           title: "操作",
@@ -85,86 +87,7 @@ export default {
           }
         }
       ],
-      data1: [
-        {
-          name: "John Brown",
-          age: 18,
-          address: "New York No. 1 Lake Park",
-          date: "2016-10-03"
-        },
-        {
-          name: "Jim Green",
-          age: 24,
-          address: "London No. 1 Lake Park",
-          date: "2016-10-01"
-        },
-        {
-          name: "Joe Black",
-          age: 30,
-          address: "Sydney No. 1 Lake Park",
-          date: "2016-10-02"
-        },
-        {
-          name: "Jon Snow",
-          age: 26,
-          address: "Ottawa No. 2 Lake Park",
-          date: "2016-10-04"
-        },
-        {
-          name: "Jon Snow",
-          age: 26,
-          address: "Ottawa No. 2 Lake Park",
-          date: "2016-10-04"
-        },
-        {
-          name: "Jon Snow",
-          age: 26,
-          address: "Ottawa No. 2 Lake Park",
-          date: "2016-10-04"
-        },
-        {
-          name: "Jon Snow",
-          age: 26,
-          address: "Ottawa No. 2 Lake Park",
-          date: "2016-10-04"
-        },
-        {
-          name: "Jon Snow",
-          age: 26,
-          address: "Ottawa No. 2 Lake Park",
-          date: "2016-10-04"
-        },
-        {
-          name: "Jon Snow",
-          age: 26,
-          address: "Ottawa No. 2 Lake Park",
-          date: "2016-10-04"
-        },
-        {
-          name: "Jon Snow",
-          age: 26,
-          address: "Ottawa No. 2 Lake Park",
-          date: "2016-10-04"
-        },
-        {
-          name: "Jon Snow",
-          age: 26,
-          address: "Ottawa No. 2 Lake Park",
-          date: "2016-10-04"
-        },
-        {
-          name: "Jon Snow",
-          age: 26,
-          address: "Ottawa No. 2 Lake Park",
-          date: "2016-10-04"
-        },
-        {
-          name: "Jon Snow",
-          age: 26,
-          address: "Ottawa No. 2 Lake Park",
-          date: "2016-10-04"
-        }
-      ],
+  
       cityList: [
         {
           value: "New York",
@@ -193,6 +116,19 @@ export default {
       ],
       model1: ""
     };
+  },
+    computed: {
+    ...mapState({
+      storelist:state=>state.home.storelist.list
+    })
+  },
+  created() {},
+  methods: {
+    ...mapActions("home", ["getshoplist"])
+  },
+  mounted() {
+    this.getshoplist();
+    console.log(this.$store.state.home.storelist.list)
   },
 };
 </script>

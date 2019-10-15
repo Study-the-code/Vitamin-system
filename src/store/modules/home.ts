@@ -1,7 +1,6 @@
 
 import http from '@/api/index'
 
-
 export default ({
     namespaced: true,
     state: {
@@ -15,6 +14,7 @@ export default ({
     actions: {
         async getshoplist({ commit }: any, payload?: any) {
             const result = await http.getshoplist()
+            console.log(result,'-------------')
             commit('setStorelist', result.data)
             return result
         }

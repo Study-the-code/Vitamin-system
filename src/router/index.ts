@@ -1,4 +1,5 @@
-//路由
+
+
 const routes = [
     {
         path:'/home',
@@ -18,6 +19,37 @@ const routes = [
             path: '/shop/guide-set',
             name: 'guide-set',
             component: () => import('../views/shop/guide-set/index.vue')
+        }]
+    },{
+        path:'/page',
+        name:'page',
+        component:()=>import ('../views/page/index.vue'),
+        children:[
+            {
+                path:'/page/page-config',
+                name:'page-config',
+                component:()=>import ('../views/page/page-config/index.vue'),
+                children:[
+                    {
+                        path:'/page/page-config/operate',
+                        name:'operate',
+                        component:()=>import ('../views/page/page-config/operate/index.vue')
+                    }
+                ]
+            }
+        ]
+    },{
+        path:'/team',
+        name:'team',
+        component:()=>import ('../views/team/index.vue'),
+        children:[{
+            path:'/team/staff',
+            name:'staff',
+            component:()=>import ('../views/team/staff/index.vue')
+        },{
+            path:'/team/shopping-guide',
+            name:'shopping-guide',
+            component:()=>import ('../views/team/shopping-guide/index.vue')
         }]
     }, {
         path: '/',
