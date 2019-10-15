@@ -17,7 +17,11 @@ import { AxiosResponse } from 'axios/index';
 
 const instance = axios.create({
     baseURL: '/api',
+<<<<<<< HEAD
     timeout: 10000,
+=======
+    // timeout: 1000,
+>>>>>>> f7fe22d322a2aceca7342320e1319b19832b76ae
     headers: {   
         'x-org-id': getToken(" org_id"),
         "x-org-type": getToken(" org_type"),

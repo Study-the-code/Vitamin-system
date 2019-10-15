@@ -9,7 +9,6 @@ class Http {
     public getshoplist = async () => {
         console.log(qs.stringify(params))
         const result = await instance.post('/store/get-store-list', qs.stringify(params))
-        console.log(result)
         return result
     };
 
@@ -28,9 +27,12 @@ class Http {
     public getMenu = async (params: any) => {
         let newparams = qs.stringify(params);
         return instance.post('/privilege/get-privilege-set', newparams);
-    }
+    };
     public getTabList=async (params:any)=>{
         return instance.post('/order/get-order-search',params);
+    };
+    public getbrand =async ()=>{
+        return instance.post('/store/brand-list')
     }
 }
 export default new Http()

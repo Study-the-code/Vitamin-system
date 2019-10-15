@@ -2,11 +2,12 @@ import http from '@/api/index'
 export default ({
     namespaced: true,
     state: {
-        repertory: {}
+        repertoryList: {}
     },
     mutations: {
-        setStorelist(state: any, payload: any) {
-            state.repertory = payload;
+        setrepertory(state: any, payload: any) {
+            state.repertoryList = payload;
+            console.log(state,'1111111111111111111')
         }
     },
     actions: {

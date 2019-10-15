@@ -12,7 +12,6 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-// import { getshoplist } from "@/store/modules/home";
 import './index.scss';
 import myselect from "@/components/common/select";
 export default {
