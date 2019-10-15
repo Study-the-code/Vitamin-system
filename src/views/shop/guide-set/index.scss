@@ -1,0 +1,46 @@
+h3 {
+    padding: 24px;
+    background: #fff;
+    overflow: hidden;
+    // height: 100px;
+}
+
+.nav {
+    width: 100%;
+
+    font-size: 14px;
+
+    border-bottom: 1px solid #e8e8e8;
+    height: 50px;
+
+    ul li {
+        float: left;
+        margin: 10px;
+        cursor: pointer;
+        line-height: 50px;
+    }
+}
+
+.select {
+    height: 200px;
+    margin: 30px;
+
+    label {
+        margin: 30px;
+    }
+
+    .btn_box {
+      
+        width: 100%;
+        button{
+            margin: 10px;
+        }
+        .left {
+            float: left;
+        }
+
+        .right {
+            float: right;
+        }
+    }
+}

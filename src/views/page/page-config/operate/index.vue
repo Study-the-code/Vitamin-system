@@ -6,7 +6,7 @@
         <div class="template-container">
           <div class="type-title">文字</div>
           <div class="template-item-logo">
-            <div class="demo-upload-list" v-for="item in uploadList">
+            <div class="demo-upload-list" v-for="(item,index) in uploadList" :key="index">
               <template v-if="item.status === 'finished'">
                 <img :src="item.url" />
                 <div class="demo-upload-list-cover">
