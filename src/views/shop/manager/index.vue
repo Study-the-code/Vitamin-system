@@ -36,7 +36,7 @@
 <script>
 
 import myselect from "@/components/common/select";
-import "./index.scss";
+// import "./index.scss";
 export default {
   name: "about",
   components: {

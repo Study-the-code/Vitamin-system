@@ -7,9 +7,8 @@ import { AxiosResponse } from 'axios/index';
     //遍历匹配
     for (var i = 0; i < arrcookie.length; i++) {
         var arr = arrcookie[i].split("=");
-        console.log(cname===arr[0])
-        if (arr[0] === cname) {
-         return arr[1];
+        if (arr[0] == cname) {
+         return  arr[1];
         }
     }
     return "";
@@ -17,8 +16,8 @@ import { AxiosResponse } from 'axios/index';
 
 const instance = axios.create({
     baseURL: '/api',
-    timeout: 1000,
-    headers: {   
+    timeout: 5000,
+    headers: {
         'x-org-id': getToken(" org_id"),
         "x-org-type": getToken(" org_type"),
         "x-user-id": getToken(" userId"),

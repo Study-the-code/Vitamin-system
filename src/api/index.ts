@@ -1,8 +1,7 @@
-import instance from '@/utils/request';
+import instance from '@/utils/index';
 import qs from 'query-string'
 let params = {
     page: 1,
-
     scene_type: 1,
 }
 
