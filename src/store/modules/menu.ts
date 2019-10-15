@@ -1,4 +1,4 @@
-import {getMenu} from '@/api/index';
+import http from '@/api/index'
 const state = {
   menuData:[]
 }
@@ -9,7 +9,7 @@ const mutations = {
 }
 const actions = {
  async getMenuData({commit}:any,payload:any){
-   let res= await getMenu(payload);
+   let res= await http.getMenu(payload);
    await commit("setMenuData",res.data)      
   }
 

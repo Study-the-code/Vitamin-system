@@ -85,7 +85,7 @@
 </template>
 <script>
 import { mapMutations, mapActions, mapState } from "vuex";
-import { getList } from "@/server/index";
+// import { getList } from "@/server/index";
 export default {
   props: {},
   components: {},
@@ -135,37 +135,12 @@ export default {
     })
   },
   methods: {
-    ...mapMutations("menu", ["orderData"]),
-    ...mapActions("menu", ["getOrder","getTab"]),
-    async getMetho() {
-      let res = await getList({
-        org_id: 61500,
-        page: 1,
-        org_type: 5,
-        status: "",
-        sort: ""
-      });
-      let news=res.data.list.map((item,index)=>{
-        return {
-            hort:item.number,
-            time:item.created_at_str,
-            people:item.customer_name,
-            types:item.order_type,
-            shou:item.return_status_str,
-            dan:item.status_str,
-            money:item.pay_amount,
-            done:'查看'
-        }
-     });
-     this.newArr = news;
-    }
-  },
-  created() {
-    this.getOrder();
-    this.getTab();
+    ...mapMutations("order", ["orderData"]),
+    ...mapActions("order", ["getOrder","getTab"]),
   },
   mounted() {
-    this.getMetho();
+     this.getOrder();
+     this.getTab();
   }
 };
 </script>

@@ -29,5 +29,8 @@ class Http {
         let newparams = qs.stringify(params);
         return instance.post('/privilege/get-privilege-set', newparams);
     }
+    public getTabList=async (params:any)=>{
+        return instance.post('/order/get-order-search',params);
+    }
 }
 export default new Http()
