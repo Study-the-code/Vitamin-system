@@ -1,11 +1,9 @@
-import instance from '@/utils/index';
+import instance from '@/utils/request'
 import qs from 'query-string'
 let params = {
     page: 1,
     scene_type: 1,
 }
-
-
 class Http {
     [key: string]: any;
     public getshoplist = async () => {
@@ -23,6 +21,13 @@ class Http {
             vm_store_id: 3446
         }))
         return result
+    };
+    public getList = (params: any) => {
+        return instance.post('/order/get-main-order-list', params)
+    };
+    public getMenu = async (params: any) => {
+        let newparams = qs.stringify(params);
+        return instance.post('/privilege/get-privilege-set', newparams);
     }
 }
 export default new Http()

@@ -1,5 +1,4 @@
-
-
+//路由
 const routes = [
     {
         path:'/home',
@@ -50,6 +49,19 @@ const routes = [
             path:'/team/shopping-guide',
             name:'shopping-guide',
             component:()=>import ('../views/team/shopping-guide/index.vue')
+        }]
+    },{
+        path:'/orders',
+        name:'orders',
+        component:()=>import ('../views/orders/index.vue'),
+        children:[{
+            path:'/orders/management',
+            name:'management',
+            component:()=>import ('../views/orders/management/index.vue')
+        },{
+            path:'/orders/shop-order',
+            name:'shop-order',
+            component:()=>import ('../views/orders/shop-order/index.vue')
         }]
     }, {
         path: '/',

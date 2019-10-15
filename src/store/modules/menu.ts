@@ -1,4 +1,4 @@
-import {getMenu} from '../../server/index';
+import {getMenu} from '@/api/index';
 const state = {
   menuData:[]
 }
@@ -12,8 +12,8 @@ const actions = {
    let res= await getMenu(payload);
    await commit("setMenuData",res.data)      
   }
-}
 
+}
 export default {
   namespaced: true,
   state,
