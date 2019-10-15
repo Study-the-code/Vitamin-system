@@ -55,7 +55,13 @@
             <template slot="title">
               <Icon type="ios-people"></Icon>团队
             </template>
-            <MenuItem name="6-1">导购管理</MenuItem>
+              
+            <MenuItem name="6-1">
+            <router-link to="/home/staff">员工管理</router-link>
+            </MenuItem>
+            <MenuItem name="6-2">
+                <router-link to="/home/stafflist">导购管理</router-link>
+            </MenuItem>
           </Submenu>
         </Menu>
       </Sider>

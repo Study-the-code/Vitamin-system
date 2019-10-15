@@ -23,6 +23,15 @@ const routes = [
             path:'/home/managementAdd',
             name:'managementAdd',
             component:( )=> import('@/views/managementAdd/index.vue')
+        },{
+            path:'/home/staff',
+            name:'staff',
+            component:()=>import('@/views/staff/index.vue')
+        }
+        ,{
+            path:'/home/stafflist',
+            name:'stafflist',
+            component:()=>import('@/views/stafflist/index.vue')
         }]
     }
 ]

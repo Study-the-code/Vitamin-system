@@ -44,8 +44,11 @@
                 style="width: 100%"
               />
             </Modal>
+            
           </div>
-          <div class="template-item-text">图片</div>
+          <div class="template-item-text"> 
+            <Button type="primary" @click="time">图片</Button>
+            </div>
           
         </div>
       </div>
@@ -64,6 +67,13 @@ export default {
   
   },
   methods: {
+     time () {
+                this.$Notice.open({
+                    title: 'Notification title',
+                    desc: 'This notification does not automatically close, and you need to click the close button to close.',
+                    duration: 0
+                });
+            },
     handleView(name) {
       this.imgName = name;
       this.visible = true;
@@ -101,6 +111,7 @@ export default {
       }
       return check;
     }
+    
   },
   mounted() {
     this.uploadList = this.$refs.upload.fileList;
