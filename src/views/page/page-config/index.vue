@@ -6,7 +6,8 @@
           <h3>页面</h3>
         </div>
         <div class="padding-24 margin-24-top bg-white">
-          <div class="btn-add" @click="yelishi">     
+          <div class="btn-add" @click="yelishi">   
+            +  
           </div>
           <div class="namelist">
             <Table :columns="columns1" :data="data1"></Table>

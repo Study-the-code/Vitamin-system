@@ -32,5 +32,8 @@ class Http {
     public getTabList=async (params:any)=>{
         return instance.post('/order/get-order-search',params);
     }
+    public getTuan=async (params:any)=>{
+        return instance.post('/user/list',params);
+    }
 }
 export default new Http()
