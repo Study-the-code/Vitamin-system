@@ -7,7 +7,7 @@
           ref="side1"
           hide-trigger
           collapsible
-          :collapsed-width="78"
+          :collapsed-width="70"
           v-model="isCollapsed"
           style="background: rgb(73, 80, 96);"
         >
@@ -32,24 +32,20 @@
             <template v-for="(menu,menu_index) in menuData">
               <Submenu :name="menu.name" v-if="menu._data.length" :key="menu_index">
                 <template slot="title">
-                  <Icon :size="20" :type="menu.icon"></Icon>
+                  <Icon :size="16" type="md-list"></Icon>
                   {{menu.name}}
                 </template>
                 <MenuItem
-                  :name="child._data"
+                  :name="child.name"
                   v-for="(child ,child_index) in menu._data"
                   :key="child_index"
                 >
-                  <Icon :size="20" :type="child.icon"></Icon>
+                  <Icon :size="16" :type="child.icon"></Icon>
                   {{child.name}}
                 </MenuItem>
               </Submenu>
-              <MenuItem
-                :name="menu.name"
-                 v-if="!menu._data.length"
-                :key="menu.name"
-              >
-                <Icon :size="20" :type="menu.icon"></Icon>
+              <MenuItem :name="menu.name" v-if="!menu._data.length" :key="menu.id">
+                <Icon :size="16" type="ios-paper"></Icon>
                 {{menu.name}}
               </MenuItem>
             </template>
@@ -67,8 +63,8 @@
                   <Icon :size="25" color="#fff" :type="menu.icon"></Icon>
                 </Button>
                 <DropdownMenu style="width: 200px;" slot="list">
-                  <template v-for="(child, i) in menu.children">
-                    <DropdownItem :name="child.name" :key="i">
+                  <template v-for="(child, i) in menu._data">
+                    <DropdownItem :name="child.title" :key="i">
                       <div style="display:flex;align-items:center;">
                         <Icon :size="16" :type="child.icon"></Icon>
                         <span style="padding-left:10px;">{{ child.title }}</span>
@@ -77,7 +73,7 @@
                   </template>
                 </DropdownMenu>
               </Dropdown>
-              <Dropdown placement="right-start" :key="menu.title">
+              <Dropdown placement="right-start" :key="menu.name">
                 <Button style="width: 85px;margin-left: -5px;padding:10px 0;" type="text">
                   <Icon :size="25" color="#fff" :type="menu.icon"></Icon>
                 </Button>
@@ -85,7 +81,7 @@
                   <DropdownItem :name="menu.name">
                     <div style="display:flex;align-items:center;">
                       <Icon :size="16" :type="menu.icon"></Icon>
-                      <span style="padding-left:10px;">{{ menu.title }}</span>
+                      <span style="padding-left:10px;">{{ menu.name }}</span>
                     </div>
                   </DropdownItem>
                 </DropdownMenu>
@@ -95,25 +91,25 @@
         </Sider>
         <Layout>
           <Header
-            :style="{position: 'fixed',
-                        width: isCollapsed?'calc(100% - 78px)':'calc(100% - 200px)',
-                        padding: 0,
-                        display:'flex',
-                        flexDirection:'column',
-                        zIndex:20
+            :style="{
+                      position: 'fixed',
+                      width: isCollapsed?'calc(100% - 78px)':'calc(100% - 200px)',
+                      padding: 0,
+                      display:'flex',
+                      flexDirection:'column',
+                      zIndex:20
                     }"
             class="layout-header-bar"
           >
             <div
-              style="
-                        display:flex;
-                        align-tems:center;
-                        justify-content:space-between;
-                        position: relative;
-                        height:60px;
-                        line-height: 60px;
-                        z-index: 1;
-                        box-shadow: 0 2px 1px 1px rgba(100, 100, 100, 0.1);"
+              style="display:flex;
+                     align-tems:center;
+                     justify-content:space-between;
+                     position: relative;
+                     height:60px;
+                     line-height: 60px;
+                     z-index: 1;
+                     box-shadow: 0 2px 1px 1px rgba(100, 100, 100, 0.1);"
             >
               <div style="display:flex;align-items:center;">
                 <Icon
@@ -125,8 +121,6 @@
                 ></Icon>
               </div>
               <div style="margin-right:20px">
-                <!-- <Button type="text" icon="person" size="large">个人中心</Button>
-                <Button type="text" icon="android-notifications" size="large" @click="clickNotice">消息通知</Button>-->
                 <Button type="text" icon="android-exit" size="large" @click="quit">退出系统</Button>
               </div>
             </div>
@@ -163,7 +157,7 @@
   </section>
 </template>
 <script>
-import { mapActions, mapState,mapMutations } from "vuex";
+import { mapActions, mapState, mapMutations } from "vuex";
 
 export default {
   data() {
@@ -171,7 +165,7 @@ export default {
       isCollapsed: false,
       // ------------------------------  菜单操作开始  --------------------------------
       openMenuName: [],
-      activeMenuName:'',
+      activeMenuName: "/home",
       menus: [
         {
           title: "首页",
@@ -384,14 +378,14 @@ export default {
     });
   },
   // ------------------------------  菜单操作结束  --------------------------------
-async mounted(){
-   let type={type:2}
-  await this.getMenuData(type);
-  console.log(this.menuData)
- },
+  async mounted() {
+    let type = { type: 2 };
+    await this.getMenuData(type);
+    console.log(this.menuData);
+  },
   methods: {
-   ...mapActions({
-      getMenuData: "menu/getMenuData",
+    ...mapActions({
+      getMenuData: "menu/getMenuData"
     }),
     quit() {
       this.logout();
@@ -454,6 +448,7 @@ async mounted(){
       this.$router.push(`${tag.href}`);
     },
     choosedMenu(name) {
+      console.log(name);
       // 获取标签数组最后一个元素的num
       let tags_last_num = this.tags[this.tags.length - 1].num;
       // 设置选中菜单name
@@ -463,17 +458,15 @@ async mounted(){
 
       //根据name查找对应的菜单对象
       let menu = null;
-      this.menus.forEach(_menu => {
-        if (_menu.name == name) {
+      this.menuData.forEach(_menu => {
+        if (_menu.name === name) {
           // 只有不在tags数组中的元素才能设置num
-          if (!_menu.showInTags) {
-            _menu.num = tags_last_num + 1;
+          if (!_menu._level === 2) {
+            _menu.status = tags_last_num + 1;
           }
           menu = _menu;
-          _menu.showInTags = true;
-          _menu.choosed = true;
-        } else if (_menu.children) {
-          _menu.children.forEach(child => {
+        } else if (_menu._data.length) {
+          _menu._data.forEach(child => {
             if (child.name == name) {
               // 只有不在tags数组中的元素才能设置num
               if (!_menu.showInTags) {
@@ -490,7 +483,7 @@ async mounted(){
           _menu.choosed = false;
         }
       });
-      this.$router.push(`${menu.href}`);
+      this.$router.push(`${menu.url}`);
     },
     dropdownClick(name) {
       this.choosedMenu(name);
@@ -519,11 +512,9 @@ async mounted(){
   overflow-x: hidden;
   overflow-y: scroll;
 }
+
 .ivu-layout.ivu-layout-has-sider {
   height: 100%;
-}
-.ivu-menu-item {
-  width: 100%;
 }
 .ivu-layout-sider {
   background: #fff;
@@ -533,7 +524,7 @@ async mounted(){
   line-height: 18px;
 }
 .ivu-menu {
-  height: 100%;
+  height: 90%;
 }
 .admin-layout-container {
   position: absolute;
