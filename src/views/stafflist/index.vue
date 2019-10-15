@@ -25,7 +25,7 @@
        <div class="ant-row">
            <div class="ant-row ant-form-item">
                手机号:
-           <Input v-model="value2" placeholder="default size" class="ddd"/>
+              <Input v-model="value2" placeholder="default size" class="ddd"/>
            </div>
            
         
