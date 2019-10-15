@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import { AxiosResponse } from 'axios/index';
 
@@ -8,8 +7,9 @@ import { AxiosResponse } from 'axios/index';
     //遍历匹配
     for (var i = 0; i < arrcookie.length; i++) {
         var arr = arrcookie[i].split("=");
-        if (arr[0] == cname) {
-         return  arr[1];
+        console.log(cname===arr[0])
+        if (arr[0] === cname) {
+         return arr[1];
         }
     }
     return "";
@@ -17,12 +17,17 @@ import { AxiosResponse } from 'axios/index';
 
 const instance = axios.create({
     baseURL: '/api',
+<<<<<<< HEAD:src/utils/index.ts
     timeout: 10000,
     headers: {
+=======
+    timeout: 1000,
+    headers: {   
+>>>>>>> 82fbd495ce23b2e6d903b70f33cf448c08313dc9:src/utils/request.ts
         'x-org-id': getToken(" org_id"),
         "x-org-type": getToken(" org_type"),
         "x-user-id": getToken(" userId"),
-        "Authorization":getToken(" Authorization")
+        "Authorization":getToken("Authorization")
     }
 })
 
