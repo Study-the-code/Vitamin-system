@@ -1,15 +1,28 @@
-
 import axios from 'axios';
 import { AxiosResponse } from 'axios/index';
 
+ function  getToken(cname: string){
+    var strcookie = document.cookie;//获取cookie字符串
+    var arrcookie = strcookie.split(";");//分割
+    //遍历匹配
+    for (var i = 0; i < arrcookie.length; i++) {
+        var arr = arrcookie[i].split("=");
+        console.log(cname===arr[0])
+        if (arr[0] === cname) {
+         return arr[1];
+        }
+    }
+    return "";
+}
+
 const instance = axios.create({
-  baseURL:'/api',
-    timeout: 5000, // request timeout
-    headers: {
-      Authorization: 'Bearer DgZcRu7p9X2bkMrTseNpc3Wa2Df00ovN',
-      'x-org-id': 61500,
-      'x-org-type': 5,
-      'x-user-id': 963245015
+    baseURL: '/api',
+    timeout: 1000,
+    headers: {   
+        'x-org-id': getToken(" org_id"),
+        "x-org-type": getToken(" org_type"),
+        "x-user-id": getToken(" userId"),
+        "Authorization":getToken("Authorization")
     }
 })
 
@@ -21,37 +34,10 @@ instance.interceptors.request.use((config: any) => {
 })
 
 //响应拦截器
-instance.interceptors.response.use(
-    /**
-     * If you want to get http information such as headers or status
-     * Please return  response => response
-     */
+instance.interceptors.response.use((Response: AxiosResponse<any>) => {
+    return Response.data;
+}, (error) => {
+    return Promise.reject(error);
+})
 
-    /**
-     * Determine the request status by custom code
-     * Here is just an example
-     * You can also judge the status by HTTP Status Code
-     */
-    response => {
-        const res = response.data
-        if (res.code === 200) {
-            return res
-        }
-        // if the custom code is not 20000, it is judged as an error.
-        if (res.code !== 20000) {
-
-
-            // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
-
-            return Promise.reject(new Error(res.message || 'Error'))
-        } else {
-            return res
-        }
-    },
-    error => {
-        console.log('err' + error)// for debug
-
-        return Promise.reject(error)
-    }
-)
 export default instance;

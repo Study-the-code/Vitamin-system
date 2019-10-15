@@ -2,7 +2,7 @@ import Vue from 'vue';
 import App from './App.vue';
 import iView from 'iview'
 import router from './router/router';
-import store from './store';
+import store from './store/store';
 
 
 import 'iview/dist/styles/iview.css'; 

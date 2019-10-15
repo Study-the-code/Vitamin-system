@@ -14,7 +14,7 @@
         </TabPane>
         <TabPane label="e店铺" name="name2">
           <div class="select">
-            <myselect :selectcon="cityList" />
+            <myselect :selectcon="cityList"/>
           </div>
 
           <div class="bottom">
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { getshoplist } from "@/api/index";
+
 import myselect from "@/components/common/select";
 import "./index.scss";
 export default {
@@ -194,17 +194,6 @@ export default {
       model1: ""
     };
   },
-  mounted() {
-    this._getlist();
-  },
-  methods: {
-    async _getlist() {
-      const result = await getshoplist();
-      //   const {hotKeywordList}=result.data.data
-      //   this.searchList =hotKeywordList;
-      console.log(result);
-    }
-  }
 };
 </script>
 

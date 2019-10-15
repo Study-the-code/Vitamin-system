@@ -2,16 +2,17 @@
   <div>
     <h3>专柜导航设置</h3>
     <div class="select">
-      <myselect :slect="cityList" />
+      <myselect :selectcon="cityList" />
     </div>
     <div class="bottom">
-      <Table  :columns="columns1" :data="data1"></Table>
+      <Table :columns="columns1" :data="data1"></Table>
     </div>
   </div>
 </template>
 
 <script>
-import { getshoplist } from "@/api/index";
+import { mapState, mapActions } from "vuex";
+// import { getshoplist } from "@/store/modules/home";
 // import './index.scss';
 import myselect from "@/components/common/select";
 export default {
@@ -161,17 +162,16 @@ export default {
       model1: ""
     };
   },
-  mounted() {
-    this._getlist();
-  },
+  // computed: {
+  //   ...mapState("storelist", ["storelist"])
+  // },
+  created() {},
   methods: {
-    async _getlist() {
-      const result = await getshoplist();
-      //   const {hotKeywordList}=result.data.data
-      //   this.searchList =hotKeywordList;
-      console.log(result);
-    }
-  }
+    ...mapActions("home", ["getshoplist"])
+  },
+  mounted() {
+    this.getshoplist();
+  },
 };
 </script>
 

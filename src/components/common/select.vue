@@ -27,6 +27,6 @@
 </template>
 <script>
 export default {
-  props: ["selectcon"]
+  props: ["selectcon",'model1']
 };
 </script>

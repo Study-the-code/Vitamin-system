@@ -126,7 +126,7 @@
               </div>
               <div style="margin-righxt:20px">
                 <!-- <Button type="text" icon="person" size="large">个人中心</Button>
-                <Button type="text" icon="android-notifications" size="large" @click="clickNotice">消息通知</Button> -->
+                <Button type="text" icon="android-notifications" size="large" @click="clickNotice">消息通知</Button>-->
                 <Button type="text" icon="android-exit" size="large" @click="quit">退出系统</Button>
               </div>
             </div>
@@ -139,13 +139,7 @@
                                 align-items: center;
                                 box-shadow: 0 2px 1px 1px rgba(100, 100, 100, 0.1);"
             >
-              <template>
-                 <Breadcrumb :style="{margin: '24px 0'}">
-                        <BreadcrumbItem>Home</BreadcrumbItem>
-                        <BreadcrumbItem>Components</BreadcrumbItem>
-                        <BreadcrumbItem>Layout</BreadcrumbItem>
-                    </Breadcrumb>
-              </template>
+              <Bread />
             </div>
           </Header>
           <Content
@@ -163,7 +157,6 @@
               <transition name="fade" mode="out-in" appear>
                 <router-view />
               </transition>
-
             </keep-alive>
           </Content>
         </Layout>
@@ -173,8 +166,11 @@
 </template>
 <script>
 import { mapActions, mapState } from "vuex";
-
+import Bread from "@/components/bread";
 export default {
+  components: {
+    Bread
+  },
   data() {
     return {
       isCollapsed: false,
@@ -217,7 +213,7 @@ export default {
               showInMenus: true,
               choosed: false
             },
-              {
+            {
               title: "专柜导航管理",
               name: "navigation",
               icon: "erlenmeyer-flask",
@@ -261,7 +257,7 @@ export default {
               showInMenus: true,
               choosed: false
             },
-             {
+            {
               title: "店铺订单",
               name: "classroom-manage",
               icon: "erlenmeyer-flask",
@@ -287,7 +283,7 @@ export default {
           title: "团队",
           name: "apk-manage",
           icon: "social-android",
-         children: [
+          children: [
             {
               title: "导购管理",
               name: "classroom-manage",
@@ -496,12 +492,14 @@ export default {
       this.choosedMenu(name);
     }
     // ------------------------------  菜单操作结束  --------------------------------
-  },
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-.ivu-menu::-webkit-scrollbar { width: 0 !important }
+.ivu-menu::-webkit-scrollbar {
+  width: 0 !important;
+}
 .logo img {
   width: 30px;
 }
@@ -513,16 +511,15 @@ export default {
   display: flex;
   align-items: center;
 }
-.ivu-menu{
-     overflow-x: hidden;
-     overflow-y: scroll;
+.ivu-menu {
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 .ivu-layout.ivu-layout-has-sider {
   height: 100%;
 }
-.ivu-menu-item{
-    width: 100%;
-   
+.ivu-menu-item {
+  width: 100%;
 }
 .ivu-layout-sider {
   background: #fff;

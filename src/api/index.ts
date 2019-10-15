@@ -1,14 +1,29 @@
-import instance from '@/utils/request'
+import instance from '@/utils/request';
+import qs from 'query-string'
+let params = {
+    page: 1,
 
-const getshoplist =async  () => {
-    const result = await instance.post('/store/get-store-list')
-    return result
-    // return instance({
-    //     url:"/store/get-store-list",
-    //     method:'post',
-    //     baseURL:'/api'
-    // })
+    scene_type: 1,
 }
-export {
-    getshoplist
+
+
+class Http {
+    [key: string]: any;
+    public getshoplist = async () => {
+        console.log(qs.stringify(params))
+        const result = await instance.post('/store/get-store-list', qs.stringify(params))
+        console.log(result)
+        return result
+    };
+
+    public getrepertory = async () => {
+        const result = await instance.post('/prod/stock-list', qs.stringify({
+            page: 1,
+            pageSize: 10,
+            status: 1,
+            vm_store_id: 3446
+        }))
+        return result
+    }
 }
+export default new Http()
