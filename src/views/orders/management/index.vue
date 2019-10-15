@@ -135,8 +135,36 @@ export default {
     })
   },
   methods: {
-    ...mapMutations("order", ["orderData"]),
-    ...mapActions("order", ["getOrder","getTab"]),
+    ...mapMutations("menu", ["orderData"]),
+    ...mapActions("menu", ["getOrder","getTab","susList","waitList"]),
+    async getMetho() {
+      let res = await getList({
+        org_id: 61500,
+        page: 1,
+        org_type: 5,
+        status: "",
+        sort: ""
+      });
+      let news=res.data.list.map((item,index)=>{
+        return {
+            hort:item.number,
+            time:item.created_at_str,
+            people:item.customer_name,
+            types:item.order_type,
+            shou:item.return_status_str,
+            dan:item.status_str,
+            money:item.pay_amount,
+            done:'查看'
+        }
+     });
+     this.newArr = news;
+    }
+  },
+  created() {
+    this.getOrder();
+    this.getTab();
+    this.susList();
+    this.waitList();
   },
   mounted() {
      this.getOrder();
