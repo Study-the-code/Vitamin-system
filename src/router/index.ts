@@ -1,33 +1,16 @@
 //路由
 const routes = [
     {
-<<<<<<< HEAD
-        path: '/',
-        redirect: "/home"
-    },
-    {
-        path: '/home',
-        name: 'home',
-        component: () => import('@/views/home/index.vue')
-    }, 
-    {
-        path: '/shop',
-        name: 'shop',
-        component: () => import('@/views/shop/index.vue'),
-        children: [
-            {
-                path: "/shop",
-                redirect:'/shop/manager'
-            },
-            {
-                path: '/shop/manager',
-                name: 'about',
-                component: () => import('@/views/shop/manager/index.vue')
-=======
         path:'/home',
         name:'home',
         component:()=>import ('@/views/home/index.vue')
-    },{
+    },
+    {
+        path: '/statistics',
+        name:"statistics",
+        component: () => import('../views/statistics/index.vue'),  
+    },
+    {
         path: '/shop',
         name:"shop",
         component: () => import('../views/shop/index.vue'),
@@ -42,7 +25,8 @@ const routes = [
             name: 'guide-set',
             component: () => import('../views/shop/guide-set/index.vue')
         }]
-    },{
+    },
+    {
         path:'/page',
         name:'page',
         component:()=>import ('../views/page/index.vue'),
@@ -58,7 +42,6 @@ const routes = [
                         component:()=>import ('../views/page/page-config/operate/index.vue')
                     }
                 ]
->>>>>>> 82fbd495ce23b2e6d903b70f33cf448c08313dc9
             }
         ]
     },{

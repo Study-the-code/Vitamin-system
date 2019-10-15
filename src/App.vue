@@ -32,21 +32,12 @@
             <template v-for="(menu,menu_index) in menuData">
               <Submenu :name="menu.name" v-if="menu._data.length" :key="menu_index">
                 <template slot="title">
-<<<<<<< HEAD
-                  <Icon :size="16" type="md-list"  @on-click="api"></Icon>
-                  {{menu.name}}
-                </template>
-                <MenuItem
-                  v-for="(child,child_index) in menu._data"
-                   :name="child.name"
-=======
                   <Icon :size="16" type="md-list"></Icon>
                   {{menu.name}}
                 </template>
                 <MenuItem
                   :name="child.name"
                   v-for="(child,child_index) in menu._data"
->>>>>>> 82fbd495ce23b2e6d903b70f33cf448c08313dc9
                   :key="child_index"
                 >
                   <Icon :size="16" :type="child.icon"></Icon>
@@ -155,17 +146,11 @@
                     }"
           >
             <!--保存组件状态到内存，避免重新渲染-->
-<<<<<<< HEAD
-            <keep-alive>
-              <router-view />
-            </keep-alive>
-=======
             <transition name="fade" mode="out-in">
                 <keep-alive>
               <router-view />
             </keep-alive>
             </transition>
->>>>>>> 82fbd495ce23b2e6d903b70f33cf448c08313dc9
           </Content>
         </Layout>
       </Layout>
@@ -353,48 +338,6 @@ export default {
   },
   // ------------------------------  菜单操作开始  --------------------------------
   //刷新页面之后保存并选中最后一次菜单和标签
-<<<<<<< HEAD
-  // beforeRouteEnter(to, from, next) {
-  //   next(vm => {
-  //     // 通过 `vm` 访问组件实例
-  //     let activeMenuName = localStorage.activeMenuName;
-  //     vm.activeMenuName = activeMenuName;
-
-  //     let tags_last_num = vm.tags[vm.tags.length - 1].num;
-
-  //     if (activeMenuName && activeMenuName.length != 0) {
-  //       vm.menus.forEach(_menu => {
-  //         if (activeMenuName == _menu.name) {
-  //           _menu.choosed = true;
-  //           _menu.showInTags = true;
-  //           _menu.num = tags_last_num + 1;
-  //         } else if (_menu.children) {
-  //           _menu.children.forEach(child => {
-  //             if (activeMenuName == child.name) {
-  //               child.choosed = true;
-  //               child.showInTags = true;
-  //               child.num = tags_last_num + 1;
-  //               vm.openMenuName = [_menu.name];
-  //             }
-  //           });
-  //         } else {
-  //           // 排除首页
-  //           if (_menu.name != "admin") {
-  //             _menu.choosed = false;
-  //             _menu.showInTags = false;
-  //           } else {
-  //             _menu.choosed = false;
-  //           }
-  //         }
-  //       });
-  //     }
-  //     vm.$nextTick(() => {
-  //       vm.$refs.side_menu.updateOpened();
-  //       vm.$refs.side_menu.updateActiveName();
-  //     });
-  //   });
-  // },
-=======
   beforeRouteEnter(to, from, next) {
     next(vm => {
       // 通过 `vm` 访问组件实例
@@ -435,23 +378,15 @@ export default {
       });
     });
   },
->>>>>>> 82fbd495ce23b2e6d903b70f33cf448c08313dc9
   // ------------------------------  菜单操作结束  --------------------------------
   async mounted() {
     let type = { type: 2 };
     await this.getMenuData(type);
-    console.log(this.menuData);
   },
   methods: {
     ...mapActions({
       getMenuData: "menu/getMenuData"
     }),
-<<<<<<< HEAD
-    api(){
-      console.log(123)
-    },
-=======
->>>>>>> 82fbd495ce23b2e6d903b70f33cf448c08313dc9
     quit() {
       this.logout();
       localStorage.removeItem("token");
@@ -513,11 +448,7 @@ export default {
       this.$router.push(`${tag.href}`);
     },
     choosedMenu(name) {
-<<<<<<< HEAD
-      console.log(name)
-=======
       console.log(name);
->>>>>>> 82fbd495ce23b2e6d903b70f33cf448c08313dc9
       // 获取标签数组最后一个元素的num
       let tags_last_num = this.tags[this.tags.length - 1].num;
       // 设置选中菜单name
@@ -530,11 +461,7 @@ export default {
       this.menuData.forEach(_menu => {
         if (_menu.name === name) {
           // 只有不在tags数组中的元素才能设置num
-<<<<<<< HEAD
-          if (!_menu.module_id=== 0) {
-=======
           if (!_menu._level === 2) {
->>>>>>> 82fbd495ce23b2e6d903b70f33cf448c08313dc9
             _menu.status = tags_last_num + 1;
           }
           menu = _menu;
@@ -556,10 +483,6 @@ export default {
           _menu.choosed = false;
         }
       });
-<<<<<<< HEAD
-      console.log(menu,menu.url)
-=======
->>>>>>> 82fbd495ce23b2e6d903b70f33cf448c08313dc9
       this.$router.push(`${menu.url}`);
     },
     dropdownClick(name) {

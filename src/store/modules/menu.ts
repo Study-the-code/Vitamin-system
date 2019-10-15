@@ -12,7 +12,6 @@ const actions = {
    let res= await http.getMenu(payload);
    await commit("setMenuData",res.data)      
   }
-
 }
 export default {
   namespaced: true,
