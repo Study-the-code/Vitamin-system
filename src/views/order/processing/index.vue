@@ -136,7 +136,7 @@ export default {
   },
   methods: {
     ...mapMutations("menu", ["orderData"]),
-    ...mapActions("menu", ["getOrder","getTab"]),
+    ...mapActions("menu", ["getOrder","getTab","susList","waitList"]),
     async getMetho() {
       let res = await getList({
         org_id: 61500,
@@ -163,6 +163,8 @@ export default {
   created() {
     this.getOrder();
     this.getTab();
+    this.susList();
+    this.waitList();
   },
   mounted() {
     this.getMetho();
