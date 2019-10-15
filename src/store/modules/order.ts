@@ -8,7 +8,6 @@ const state = {
 const mutations = {
   orderData(state: any, payload: any) {
     state.arr = payload;
-    //console.log(state.arr,'1111')
   },
   tabData(state: any, payload: any) {
     state.tabList = payload;
@@ -40,11 +39,6 @@ const actions = {
     console.log(res.data)
     await commit("tabData", res.data);
   },
-  async susList() {
-
-  }
-
-
 }
 export default {
   namespaced: true,

@@ -382,7 +382,6 @@ export default {
   async mounted() {
     let type = { type: 2 };
     await this.getMenuData(type);
-    console.log(this.menuData);
   },
   methods: {
     ...mapActions({

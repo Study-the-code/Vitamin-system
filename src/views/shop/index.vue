@@ -17,8 +17,3 @@ export default {
 <style>
 </style>
 
-<<<<<<< HEAD
-=======
-    </div>
-</template>
->>>>>>> 48239fc70b430c6bab48a8bdf177afb45ef4e7c7
