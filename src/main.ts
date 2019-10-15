@@ -2,7 +2,8 @@ import Vue from 'vue';
 import App from './App.vue';
 import iView from 'iview'
 import router from './router/router';
-import store from './store';
+import store from './store/index';
+// import './fonts/iconfont-1571035970495/fonts';
 
 
 import 'iview/dist/styles/iview.css'; 

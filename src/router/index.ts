@@ -1,19 +1,21 @@
-
-
+//路由
 const routes = [
     {
         path: '/',
-        name: 'home',
-        component: () => import('@/views/home/index.vue')
+        redirect:"/home"
     },
     {
         path:'/home',
         name:'home',
         component:()=>import ('@/views/home/index.vue'),
          children:[{
-            path: '/home/shop',
-            name: 'shop',
-            component: () => import('@/views/shop/index.vue')
+            path: '/home/processing',
+            name: 'processing',
+            component: () => import('@/views/order/processing/index.vue') 
+        },{
+            path: '/home/store',
+            name: 'store',
+            component: () => import('@/views/order/stores/index.vue') 
         }]
     }
 ]
