@@ -34,5 +34,8 @@ class Http {
     public getbrand =async ()=>{
         return instance.post('/store/brand-list')
     }
+    public getTuan=async (params:any)=>{
+        return instance.post('/user/list',params);
+    }
 }
 export default new Http()
