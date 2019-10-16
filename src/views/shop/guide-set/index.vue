@@ -5,7 +5,7 @@
       <myselect :selectcon="floor" />
     </div>
     <div class="bottom">
-      <Table :columns="columns1" :data="storelist" ></Table>
+      <Table :columns="columns1" :data="storelist"></Table>
     </div>
   </div>
 </template>
@@ -14,7 +14,7 @@
 import { mapState, mapActions } from "vuex";
 
 import myselect from "@/components/common/select";
-import http from '@/api/index'
+import http from "@/api/index";
 export default {
   name: "about",
   components: {
@@ -41,7 +41,6 @@ export default {
           title: "所属分类",
           key: "category_data",
           render: (p, params) => {
-          
             return p("li", [
               p("li", {
                 type: "person"
@@ -56,15 +55,14 @@ export default {
           sortable: true
         }
       ],
-     
-     
+
       model1: "",
-      floor:[]
+      floor: []
     };
   },
   computed: {
     ...mapState({
-      storelist:state=>state.home.storelist.list
+      storelist: state => state.home.storelist.list
     })
   },
   created() {},
@@ -77,7 +75,7 @@ export default {
     //   this.list = data;
     //   return result;
     // },
-     async _getfloor() {
+    async _getfloor() {
       const result = await http.getfloor();
 
       const { list } = result.data;
@@ -89,9 +87,9 @@ export default {
   mounted() {
     this.getshoplist();
     // console.log(this.$store.state.home.storelist.list)
-      this._getfloor();
+    this._getfloor();
     //  this._getbrend();
-  },
+  }
 };
 </script>
 
