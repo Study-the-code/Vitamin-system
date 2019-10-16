@@ -10,7 +10,7 @@
             +  
           </div>
           <div class="namelist">
-            <Table :columns="columns1" :data="data1"></Table>
+            <Table :columns="columns1" :data="listhome"></Table>
           </div>
           <div class="goage">
             <span>第1-3条, 共 3 条</span>
@@ -23,17 +23,20 @@
 </template>
 
 <script>
+
+import http from "@/api/index"
 export default {
   data() {
     return {
+      listhome:[],
       columns1: [
         {
           title: "名称",
-          key: "name"
+          key: "page_title"
         },
         {
           title: "URL",
-          key: "age"
+          key: "page_url"
         },
         {
           title: "状态",
@@ -41,39 +44,52 @@ export default {
         },
         {
           title: "发布时间",
-          key: "release"
+          key: "publish_time"
         }
       ],
-      data1: [
-        {
-          name: "John Brown",
-          age: 18,
-          address: "New York No. 1 Lake Park",
-          release: "--",
-          date: "2016-10-03"
-        },
-        {
-          name: "Jim Green",
-          age: 24,
-          address: "London No. 1 Lake Park",
-          release: "立即发布",
-          date: "2016-10-01"
-        },
-        {
-          name: "Joe Black",
-          age: 30,
-          address: "Sydney No. 1 Lake Park",
-          release: "立即发布",
-          date: "2016-10-02"
-        }
-      ]
+      // data1: [
+      //   {
+      //     name: "John Brown",
+      //     age: 18,
+      //     address: "New York No. 1 Lake Park",
+      //     release: "--",
+      //     date: "2016-10-03"
+      //   },
+      //   {
+      //     name: "Jim Green",
+      //     age: 24,
+      //     address: "London No. 1 Lake Park",
+      //     release: "立即发布",
+      //     date: "2016-10-01"
+      //   },
+      //   {
+      //     name: "Joe Black",
+      //     age: 30,
+      //     address: "Sydney No. 1 Lake Park",
+      //     release: "立即发布",
+      //     date: "2016-10-02"
+      //   }
+      // ],
+       model1: ""
     };
   },
+ created() {},
   methods: {
+     async gethomelist(){
+      const getlist= await http.gethome()
+      this.listhome=getlist.data.list
+      console.log(getlist.data.list)
+    },
     yelishi() {
       this.$router.push("/page/page-config/operate");
-    }
-  }
+    },
+   
+  },
+  
+  mounted() {
+    this.gethomelist();
+  },
+
 };
 </script>
 <style lang='scss' scoped>

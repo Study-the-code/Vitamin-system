@@ -28,14 +28,46 @@ class Http {
         let newparams = qs.stringify(params);
         return instance.post('/privilege/get-privilege-set', newparams);
     };
-    public getTabList=async (params:any)=>{
-        return instance.post('/order/get-order-search',params);
+    public getTabList = async (params: any) => {
+        return instance.post('/order/get-order-search', params);
     };
-    public getbrand =async ()=>{
+    public getbrand = async () => {
         return instance.post('/store/brand-list')
     }
-    public getTuan=async (params:any)=>{
-        return instance.post('/user/list',params);
+    public getTuan = async (params: any) => {
+
+        const result = await instance.post('/user/list', {
+            type: 2,
+            page: 1,
+
+        });
+        console.log(result)
+        return result
+        // return instance.post('/user/list',params)
     }
+    public gethome=async(params:any)=>{
+        const result=await instance.post('page-manage/list',{
+            page: 1
+        })
+        return result
+    }
+    public getjiao=async(params:any)=>{
+        const result=await instance.post('/user/role-select-list',{
+            role_type: 2
+        })
+        return result
+        
+    }
+    public getmiao=async(params:any)=>{
+        const result=await instance.post('/role/role-desc-list',{
+            mall_id: 61500,
+            type: 1,
+            page: 1
+        })
+        return result
+        
+    }
+    
+
 }
 export default new Http()
