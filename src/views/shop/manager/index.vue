@@ -19,7 +19,7 @@
           </div>
 
           <div class="bottom">
-            <Table :columns="columns1" :data="data1"></Table>
+            <Table :columns="columns1" :data="cityList"></Table>
           </div>
         </TabPane>
       </Tabs>
