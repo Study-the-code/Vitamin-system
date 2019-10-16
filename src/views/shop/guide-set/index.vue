@@ -39,7 +39,16 @@ export default {
         },
         {
           title: "所属分类",
-          key: "category_data"
+          key: "category_data",
+          render: (p, params) => {
+          
+            return p("li", [
+              p("li", {
+                type: "person"
+              }),
+              p("strong", params.row.category_data)
+            ]);
+          }
         },
         {
           title: "权重",

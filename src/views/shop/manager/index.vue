@@ -31,15 +31,12 @@
                 <Option v-for="item in list" :value="item.name" :key="item.id">{{ item.name }}</Option>
               </Select>
             </label>
-            
-                <Button type="primary">查询</Button>
-                <Button>重置</Button>
-            
+
+            <Button type="primary">查询</Button>
+            <Button>重置</Button>
           </div>
           <div class="bottom">
-            <Table :columns="columns2" :data="shopList">
-             
-            </Table>
+            <Table :columns="columns2" :data="shopList"></Table>
           </div>
         </TabPane>
       </Tabs>
@@ -79,7 +76,16 @@ export default {
         },
         {
           title: "所属分类",
-          key: "category_data"
+          key: "category_data",
+          render: (p, params) => {
+          
+            return p("li", [
+              p("li", {
+                type: "person"
+              }),
+              p("strong", params.row.category_data)
+            ]);
+          }
         },
         {
           title: "店长",
@@ -96,20 +102,24 @@ export default {
         {
           title: "操作",
           key: "domain",
-          render: (e,params) => {
-            return e('a',[
-              e('a',{
-                props:{
-                  type:"1"
-                },
-                on:{
-                  click:()=>{
-                    const id=params.row.id
-                    this.goDetail(id)
+          render: (e, params) => {
+            return e("a", [
+              e(
+                "a",
+                {
+                  props: {
+                    type: "1"
+                  },
+                  on: {
+                    click: () => {
+                      const id = params.row.id;
+                      this.goDetail(id);
+                    }
                   }
-                }
-              },'查看')
-            ])
+                },
+                "查看"
+              )
+            ]);
           }
         }
       ],
@@ -120,7 +130,16 @@ export default {
         },
         {
           title: "店铺权限",
-          key: "store_permission"
+          key: "store_permission",
+          render: (p, params) => {
+           
+            return p("li", [
+              p("li", {
+                type: "person"
+              }),
+              p("strong", params.row.store_permission)
+            ]);
+          }
         },
         {
           title: "授权品牌",
@@ -128,7 +147,16 @@ export default {
         },
         {
           title: "商品来源",
-          key: "prod_src"
+          key: "prod_src",
+          render: (p, params) => {
+     
+            return p("p", [
+              p("p", {
+                type: "1"
+              }),
+              p("strong", params.row.prod_src)
+            ]);
+          }
         },
         {
           title: "状态",
@@ -137,8 +165,25 @@ export default {
         {
           title: "操作",
           key: "domain",
-          render: () => {
-            return <a>查看</a>;
+          render: (e, params) => {
+            return e("a", [
+              e(
+                "a",
+                {
+                  props: {
+                    type: "1"
+                  },
+                  on: {
+                    click: () => {
+                      const id = params.row.id;
+
+                      this.goDetail(id);
+                    }
+                  }
+                },
+                "查看"
+              )
+            ]);
           }
         }
       ],
@@ -186,12 +231,12 @@ export default {
       this.list = data;
       return result;
     },
-    goDetail(id){
-      console.log(id)
-      console.log(this.$router)
+    goDetail(id) {
+      console.log(id);
+      console.log(this.$router);
       this.$router.push({
-        path:`/shop/manager/detail/${id}`
-      })
+        path: `/shop/manager/detail/${id}`
+      });
     }
   },
   mounted() {
