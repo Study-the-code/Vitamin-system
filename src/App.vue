@@ -159,7 +159,7 @@
 </template>
 <script>
 import { mapActions, mapState, mapMutations } from "vuex";
-
+import './common/style.scss'
 export default {
   data() {
     return {

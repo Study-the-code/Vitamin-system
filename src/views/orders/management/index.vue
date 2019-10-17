@@ -45,7 +45,7 @@
             <i-table :columns="columns1" :data="newArr"></i-table>
           </div>
           <div class="btrem">
-            <Page :total="pages" show-total></Page>
+            <Page :total="pageLength" show-total :current="pageCurrent" @on-change="changepage"></Page>
           </div>
         </div>
       </div>
@@ -95,7 +95,7 @@ export default {
         }
       ],
       newArr: [],
-      pages: 0,
+      pages: 2,
       souLie: [
         [
           {
@@ -178,7 +178,6 @@ export default {
                 name: "SNIDEL",
                 value: 34162
               }
-              
             ]
           },
           {
@@ -231,7 +230,12 @@ export default {
       val: "",
       dingType: "",
       floors: "",
-      store: ""
+      store: "",
+      ops:'',
+      pageLength:0,
+      pageCurrent:0,
+      pageSize:10,
+      pageDang:1
     };
   },
   computed: {
@@ -242,10 +246,11 @@ export default {
   methods: {
     ...mapMutations("order", ["orderData"]),
     ...mapActions("order", ["getOrder", "getTab"]),
+    //全部
     async getMetho() {
       let res = await http.getList({
         org_id: 61500,
-        page: 1,
+        page: this.pageDang,
         org_type: 5,
         status: "",
         sort: ""
@@ -263,8 +268,15 @@ export default {
           done: "查看"
         };
       });
+     
+      console.log(this.pageCurrent);
       this.newArr = news;
+      this.pageLength = res.data.page.totalNum;
+      console.log(this.pageLength);
+
+       
     },
+    //待发货：
     async getSd() {
       let res = await http.getList({
         org_id: 61500,
@@ -285,8 +297,10 @@ export default {
           done: "查看"
         };
       });
+      this.pageLength = res.data.page.totalNum;
       this.newArr = news;
     },
+    //代付款
     async getWait() {
       let res = await http.getList({
         org_id: 61500,
@@ -307,12 +321,14 @@ export default {
           done: "查看"
         };
       });
+      this.pageLength = res.data.page.totalNum;
       this.newArr = news;
     },
+    //待收货：
     async getSh() {
       let res = await http.getList({
         org_id: 61500,
-        page: 1,
+        page: this.pageDang,
         org_type: 5,
         status: 3,
         sort: ""
@@ -329,16 +345,19 @@ export default {
           done: "查看"
         };
       });
+      this.pageLength = res.data.page.totalNum;
       this.newArr = news;
     },
+    //已完成
     async getSu() {
       let res = await http.getList({
         org_id: 61500,
-        page: 1,
+        page: this.pageDang,
         org_type: 5,
         status: 4,
         sort: ""
       });
+      console.log(res.data.list)
       let news = res.data.list.map((item, index) => {
         return {
           hort: item.number,
@@ -350,7 +369,9 @@ export default {
           money: item.pay_amount,
           done: "查看"
         };
+        console.log(news)
       });
+      this.pageLength = res.data.page.totalNum;
       this.newArr = news;
     },
     //option数据：
@@ -402,16 +423,37 @@ export default {
       console.log(arr);
       //接口中的参数：
       let obj = {
+        org_id: 61500,
+        page: this.pageDang,
+        org_type: 5,
+        status: "",
+        sort: "",
         number: this.modelList.hort,
         delivery_name: this.modelList.name,
         delivery_tel: this.modelList.phone,
         order_type: this.modelList.type,
+        floor_id: "",
+        vm_store_id: "",
+        brand_id: "",
         prod_code: this.modelList.kuan,
         prod_name: this.modelList.buildName,
         submit_time: this.modelList.buildName,
         order_pay_time: this.modelList.xiaTime
       };
+      console.log(this.ops);
+    },
+    async changepage(index){
+      console.log(index);
+      // var _start = ( index - 1 ) * this.pageSize;
+      // var _end = index * this.pageSize;
+      // this.historyData = this.newArr.slice(_start,_end);
+      this.pageCurrent=index;
+      console.log(this.pageCurrent);
+      this.pageDang = this.pageCurrent;
+      this.getMetho();
     }
+
+    
   },
 
   created() {
@@ -420,6 +462,8 @@ export default {
     console.log(this.souLie);
     // console.log(this.$store.state.order.arr.list)
     console.log(this.arr);
+
+    
   },
   async mounted() {
     await this.getOrder();

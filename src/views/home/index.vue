@@ -56,5 +56,5 @@ export default {
 .icon div:nth-child(2) img {
   width: 165px;
 }
-</style>>
+</style>
  

@@ -17,7 +17,6 @@ import { AxiosResponse } from 'axios/index';
 
 const instance = axios.create({
     baseURL: '/api',
-    timeout: 10000,
     headers: {   
         'x-org-id': getToken(" org_id"),
         "x-org-type": getToken(" org_type"),

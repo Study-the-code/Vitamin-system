@@ -1,20 +1,17 @@
 <template>
-  <div>
-    <transition name="fade" mode="out-in">
+    <div>
+      <transition name="fade" mode="out-in">
       <keep-alive>
         <router-view />
       </keep-alive>
     </transition>
-  </div>
+    </div>
 </template>
-
 <script>
-import './index.scss';
 export default {
-  name: "shop"
-};
+    name:'setting'
+}
 </script>
+<style lang="scss" scoped>
 
-<style>
 </style>
-

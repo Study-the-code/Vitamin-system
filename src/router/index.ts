@@ -18,12 +18,16 @@ const routes = [
             {
                 path:'/shop/manager',
                 name:'manager',
-                component:()=>import('../views/shop/manager/index.vue')
+                component:()=>import('../views/shop/manager/index.vue'),
             },
             {
             path: '/shop/guide-set',
             name: 'guide-set',
             component: () => import('../views/shop/guide-set/index.vue')
+        }, {
+            path:'/shop/manager/detail/:id',
+            name:'detail',
+            component:()=>import('../views/shop/manager/detail/index.vue')
         }]
     },
     {
@@ -69,6 +73,19 @@ const routes = [
             path:'/orders/shop-order',
             name:'shop-order',
             component:()=>import ('../views/orders/shop-order/index.vue')
+        }]
+    },{
+        path:'/setting',
+        name:'setting',
+        component:()=>import ('../views/setting/index.vue'),
+        children:[{
+            path:'/setting/shop-set',
+            name:'set',
+            component:()=>import ('../views/setting/shop-set/index.vue')
+        },{
+            path:'/setting/order',
+            name:'order',
+            component:()=>import ('../views/setting/order/index.vue')
         }]
     }, {
         path: '/',

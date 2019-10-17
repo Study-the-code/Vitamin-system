@@ -9,25 +9,17 @@
           </div>
 
           <div class="bottom">
-            <Table :columns="columns1" :data="storelist"></Table>
+            <Table :columns="columns1" :data="pagelists"></Table>
           </div>
         </TabPane>
-        <TabPane label="邀请中(3)" name="name2">
-          <!-- <div class="select">
-            <myselects :selectcon="cityList"/>
-          </div> -->
-
+        <TabPane label="邀请中(96)" name="name2">
           <div class="bottom">
-            <Table :columns="columns1" :data="data1"></Table>
+            <Table :columns="columns3" :data="pagelists"></Table>
           </div>
         </TabPane>
         <TabPane label="角色描述" name="name3">
-          <!-- <div class="select">
-            <myselects :selectcon="cityList"/>
-          </div> -->
-
           <div class="bottom">
-            <Table :columns="columns1" :data="data1"></Table>
+            <Table :columns="columns2" :data="pagejiao"></Table>
           </div>
         </TabPane>
       </Tabs>
@@ -36,9 +28,9 @@
 </template>
 
 <script>
-
 import myselects from "@/components/common/selectlist";
-import { mapState, mapActions } from "vuex";
+import http from "@/api/index";
+// console.log(http,'---------------')
 export default {
   name: "about",
   components: {
@@ -48,47 +40,105 @@ export default {
     return {
       value: "",
       list: [],
+      pagelists: [],
+      pagejiao: [],
       columns1: [
         {
           title: "头像",
-          key: "name"
+          key: "imgl"
         },
         {
           title: "姓名",
-          key: "floor_name"
+          key: "user_name"
         },
         {
           title: "手机号",
-          key: "address"
+          key: "mobile"
         },
         {
-          title: "所属分类",
-          key: "category_data",
-          
+          title: "角色",
+          key: "role"
         },
         {
-          title: "店长",
-          key: "shop_manager"
+          title: "所属店铺",
+          key: "store_name"
         },
         {
-          title: "楼管",
+          title: "顾客账号",
           key: "building"
         },
         {
           title: "状态",
-          key: "status_str"
+          key: "status"
         },
         {
           title: "操作",
           key: "domain",
-          render: ()=>{
-            return <a>
-                查看
-            </a>
+          render: () => {
+            return <a>查看</a>;
           }
         }
       ],
-  
+      columns3: [
+       
+        {
+          title: "姓名",
+          key: "user_name"
+        },
+        {
+          title: "手机号",
+          key: "mobile"
+        },
+        {
+          title: "角色",
+          key: "role"
+        },
+        {
+          title: "所属店铺",
+          key: "store_name"
+        },
+        {
+          title: "邀请者",
+          key: "create_user_name"
+        },
+        {
+          title: "发送时间",
+          key: "created_at"
+        },
+        {
+          title: "操作",
+          key: "domain",
+          render: () => {
+            return <a>查看</a>;
+          }
+        }
+      ],
+      columns2: [
+        {
+          title: "角色",
+          key: "name"
+        },
+        {
+          title: "权限",
+          key: "name"
+        },
+        {
+          title: "店铺权限",
+          key: "building"
+        },
+        {
+          title: "手机APP",
+          key: "status"
+        },
+        {
+          title: "操作",
+          key: "domain",
+          render: () => {
+            return <a>查看</a>;
+          }
+        }
+      ],
+
       cityList: [
         {
           value: "New York",
@@ -118,19 +168,24 @@ export default {
       model1: ""
     };
   },
-    computed: {
-    ...mapState({
-      storelist:state=>state.home.storelist.list
-    })
-  },
+
   created() {},
   methods: {
-    ...mapActions("home", ["getshoplist"])
+    async getlist() {
+      const pagelist = await http.getTuan();
+      this.pagelists = pagelist.data.list;
+      console.log(pagelist.data.list);
+    },
+    async getll() {
+      const jiaose = await http.getjiao();
+      this.pagejiao = jiaose.data.roleMap;
+      console.log(jiaose.data.roleMap);
+    }
   },
   mounted() {
-    this.getshoplist();
-    console.log(this.$store.state.home.storelist.list)
-  },
+    this.getlist();
+    this.getll();
+  }
 };
 </script>
 
