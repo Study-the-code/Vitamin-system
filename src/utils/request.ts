@@ -7,21 +7,22 @@ import { AxiosResponse } from 'axios/index';
     //遍历匹配
     for (var i = 0; i < arrcookie.length; i++) {
         var arr = arrcookie[i].split("=");
-        if (arr[0] == cname) {
-         return  arr[1];
+        console.log(cname===arr[0])
+        if (arr[0] === cname) {
+         return arr[1];
         }
     }
     return "";
 }
-console.log(getToken(" org_id"),getToken(" org_type"),getToken(" userId"),getToken("Authorization"))
+
 const instance = axios.create({
     baseURL: '/api',
-    timeout: 5000,
-    headers: {
+    timeout: 10000,
+    headers: {   
         'x-org-id': getToken(" org_id"),
         "x-org-type": getToken(" org_type"),
         "x-user-id": getToken(" userId"),
-        "Authorization":getToken("Authorization")
+        "Authorization":getToken(" Authorization")
     }
 })
 

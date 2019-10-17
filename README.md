@@ -30,5 +30,13 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## 初始化代码
 
+
+
+```js
+213
+123456789
+```
+
 ## 滚动条样式
 .ivu-menu::-webkit-scrollbar { width: 0 !important }
+
