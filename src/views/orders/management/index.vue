@@ -85,7 +85,7 @@
 </template>
 <script>
 import { mapMutations, mapActions, mapState } from "vuex";
-// import { getList } from "@/server/index";
+
 export default {
   props: {},
   components: {},
@@ -131,12 +131,12 @@ export default {
   },
   computed: {
     ...mapState({
-      arr: state => state.arr
+      arr: state => state.order.arr
     })
   },
   methods: {
-    ...mapMutations("menu", ["orderData"]),
-    ...mapActions("menu", ["getOrder","getTab","susList","waitList"]),
+    ...mapMutations("orider", ["orderData"]),
+    ...mapActions("orider", ["getOrder","getTab","susList","waitList"]),
     async getMetho() {
       let res = await getList({
         org_id: 61500,
