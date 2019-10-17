@@ -38,9 +38,7 @@ class Http {
     public categoryList =async ()=>{
         return instance.post('/store/category-list')
     }
-    public getTuan = async (params: any) => {
-        return instance.post('/user/list', params);
-    };
+   
     // 楼层数据
     public getfloor = async () => {
         const result = await instance.post('/store/floor-list')
@@ -77,6 +75,16 @@ class Http {
         })
         return result
     }
+
+    public getTuan = async (params: any) => {
+        const result =  await instance.post('/user/list',{
+            type: 1,
+            page: 1,
+            status: 0,
+        })
+        return result
+    };
+
     public gethome=async(params:any)=>{
         const result=await instance.post('page-manage/list',{
             page: 1
