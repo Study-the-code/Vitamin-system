@@ -18,12 +18,16 @@ const routes = [
             {
                 path:'/shop/manager',
                 name:'manager',
-                component:()=>import('../views/shop/manager/index.vue')
+                component:()=>import('../views/shop/manager/index.vue'),
             },
             {
             path: '/shop/guide-set',
             name: 'guide-set',
             component: () => import('../views/shop/guide-set/index.vue')
+        }, {
+            path:'/shop/manager/detail/:id',
+            name:'detail',
+            component:()=>import('../views/shop/manager/detail/index.vue')
         }]
     },
     {
