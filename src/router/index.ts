@@ -70,6 +70,19 @@ const routes = [
             name:'shop-order',
             component:()=>import ('../views/orders/shop-order/index.vue')
         }]
+    },{
+        path:'/setting',
+        name:'setting',
+        component:()=>import ('../views/setting/index.vue'),
+        children:[{
+            path:'/setting/shop-set',
+            name:'set',
+            component:()=>import ('../views/setting/shop-set/index.vue')
+        },{
+            path:'/setting/order',
+            name:'order',
+            component:()=>import ('../views/setting/order/index.vue')
+        }]
     }, {
         path: '/',
         redirect:"/home"

@@ -33,6 +33,10 @@ class Http {
     };
     public getbrand =async ()=>{
         return instance.post('/store/brand-list')
+    };
+    public categoryList =async ()=>{
+        return instance.post('/store/category-list')
     }
+
 }
 export default new Http()
