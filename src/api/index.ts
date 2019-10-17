@@ -34,10 +34,22 @@ class Http {
     public getbrand = async () => {
         return instance.post('/store/brand-list')
     };
-    //设置的tab表格
+    //店铺设置的tab表格数据
     public categoryList =async ()=>{
         return instance.post('/store/category-list')
     }
+    public floorList =async ()=>{
+        return instance.post('/store/floor-list')
+    }
+    //添加table父类数据
+    public categorySave = async (params: any) => {
+        return instance.post('/store/category-save', params);
+    };
+     //删除table数据
+     public categoryDelete = async (params: any) => {
+        return instance.post('/store/category-delete', params);
+    };
+
     public getTuan = async (params: any) => {
         return instance.post('/user/list', params);
     };
