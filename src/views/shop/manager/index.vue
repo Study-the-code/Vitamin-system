@@ -227,13 +227,12 @@ export default {
     async _getbrend() {
       const result = await http.getbrand();
       const { data } = result;
-      console.log(result.data, "----------------------");
+    
       this.list = data;
       return result;
     },
     goDetail(id) {
-      console.log(id);
-      console.log(this.$router);
+     
       this.$router.push({
         path: `/shop/manager/detail/${id}`
       });

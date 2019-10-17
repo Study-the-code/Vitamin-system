@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="shop">
     <label for>
       店铺名：
       <Input v-model="value" placeholder="请输入店铺名称" style="width: 300px" />
@@ -30,3 +30,6 @@ export default {
   props: ["selectcon", "model1", "value"]
 };
 </script>
+<style lang="scss">
+
+</style>
