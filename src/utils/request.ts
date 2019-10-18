@@ -21,7 +21,7 @@ const instance = axios.create({
         'x-org-id': getToken(" org_id"),
         "x-org-type": getToken(" org_type"),
         "x-user-id": getToken(" userId"),
-        "Authorization":getToken(" Authorization")
+        "Authorization":getToken("Authorization")
     }
 })
 

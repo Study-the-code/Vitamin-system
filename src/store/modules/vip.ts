@@ -9,7 +9,9 @@ export default {
         shopList:[],
         cityList:[],
         membersetList:[],
-        qrcore:[]
+        qrcore:[],
+        processlog:[],
+        upList:[]
     },
     mutations: {
         setcardPicture(state:any,payload:any){
@@ -35,6 +37,12 @@ export default {
         },
         setqrcord(state:any,payload:any){
             state.qrcore=payload
+        },
+        setProcess(state:any,payload:any){
+            state.processlog=payload
+        },
+        setupload(state:any,payload:any){
+            state.upList=payload
         }
     },
     actions: {
@@ -73,6 +81,19 @@ export default {
             }
             const res=await http.dragging(params)
             await commit('setqrcord',res.data)
+        },
+        async Processing({commit}:any,payload:any){
+            const res=await http.Download()
+            await commit('setProcess',res.data)
+        },
+        async Uploadling({commit}:any,payload:any){
+            const params={
+                page: 1,
+                page_size: 10 
+            }
+            const res=await http.Upload(params)
+            console.log(res)
+            await commit('setupload',res.data)
         }
     }
 }

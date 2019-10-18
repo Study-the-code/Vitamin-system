@@ -7,7 +7,7 @@
           <div class="select">
             <myselect :selectcon="floor" />
           </div>
-          <div id="add" @click="clickStatic">+</div>
+          <div id="add" @click="value1 = true">+</div>
           <div class="bottom">
             <Table :columns="columns1" :data="storelist"></Table>
             <Page :total="100" show-total />
@@ -41,26 +41,30 @@
         </TabPane>
       </Tabs>
     </div>
-    <trDialog v-show="flag" @flagMethod="flagMethod" />
+     <Drawer title="Basic Drawer" :closable="false" v-model="value1">
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+    </Drawer>
   </div>
 </template>
 
 <script>
 import myselect from "@/components/common/select";
 import { mapState, mapActions } from "vuex";
-import trDialog from "@/components/trdialog";
+
 import http from "@/api/index";
 
 export default {
   name: "about",
   components: {
-    myselect,
-    trDialog
+    myselect
   },
   data() {
     return {
       value: "",
       list: [],
+         value1: false,
       columns1: [
         {
           title: "店铺名称",
@@ -78,7 +82,6 @@ export default {
           title: "所属分类",
           key: "category_data",
           render: (p, params) => {
-          
             return p("li", [
               p("li", {
                 type: "person"
@@ -113,6 +116,7 @@ export default {
                   on: {
                     click: () => {
                       const id = params.row.id;
+
                       this.goDetail(id);
                     }
                   }
@@ -132,7 +136,6 @@ export default {
           title: "店铺权限",
           key: "store_permission",
           render: (p, params) => {
-           
             return p("li", [
               p("li", {
                 type: "person"
@@ -149,7 +152,6 @@ export default {
           title: "商品来源",
           key: "prod_src",
           render: (p, params) => {
-     
             return p("p", [
               p("p", {
                 type: "1"
@@ -210,12 +212,7 @@ export default {
       this.floor = list;
       return result;
     },
-    clickStatic() {
-      this.flag = true;
-    },
-    flagMethod() {
-      this.flag = false;
-    },
+   
     async _getshop() {
       const result = await http.getshopList();
       const { list } = result.data;
@@ -227,12 +224,11 @@ export default {
     async _getbrend() {
       const result = await http.getbrand();
       const { data } = result;
-    
+
       this.list = data;
       return result;
     },
     goDetail(id) {
-     
       this.$router.push({
         path: `/shop/manager/detail/${id}`
       });
