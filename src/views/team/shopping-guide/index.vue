@@ -180,7 +180,6 @@ export default {
     async getll() {
       const jiaose = await http.getjiao();
       this.pagejiao = jiaose.data.roleMap;
-      
       console.log(jiaose.data.list)
     }
   },

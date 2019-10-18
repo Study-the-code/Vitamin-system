@@ -78,6 +78,12 @@
           <div class="tabone">
             <i-table :columns="columns1" :data="newArr"></i-table>
           </div>
+<<<<<<< HEAD
+=======
+          <div class="btrem">
+            <Page :total="pageLength" show-total :current="pageCurrent" @on-change="changepage"></Page>
+          </div>
+>>>>>>> 5eb593b18684b75de6b3d89d6e23a36c718f0e97
         </div>
       </div>
     </div>
@@ -125,8 +131,153 @@ export default {
           key: "done"
         }
       ],
+<<<<<<< HEAD
       value: "",
       newArr: []
+=======
+      newArr: [],
+      pages: 2,
+      souLie: [
+        [
+          {
+            name: "订单号",
+            is: "i-input",
+            ils: "hort"
+          },
+          {
+            name: "姓名",
+            is: "i-input",
+            ils: "name"
+          },
+          {
+            name: "手机号",
+            is: "i-input",
+            ils: "phone"
+          },
+          {
+            name: "订单类型",
+            is: "i-select",
+            ils: "type",
+            options: [
+              {
+                name: "全部"
+              },
+              {
+                name: "线上pos"
+              },
+              {
+                name: "电商订单"
+              },
+              {
+                name: "电子卡劵"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            name: "楼层",
+            is: "i-select",
+            ils: "floor",
+            options: [
+              {
+                id: 2,
+                name: "F1"
+              },
+              {
+                id: 3,
+                name: "F2"
+              },
+              {
+                id: 4,
+                name: "F3"
+              },
+              {
+                id: 5,
+                name: "F4"
+              },
+              {
+                id: 6,
+                name: "F5"
+              },
+              {
+                id: 7,
+                name: "F6"
+              }
+            ]
+          },
+          {
+            name: "店铺",
+            is: "i-select",
+            ils: "builds",
+            options: [
+              {
+                name: "III VIVINIKO",
+                value: 27049
+              },
+              {
+                name: "SNIDEL",
+                value: 34162
+              }
+            ]
+          },
+          {
+            name: "品牌",
+            is: "i-select",
+            ils: "pin",
+            options: [
+              {
+                name: "GXG"
+              }
+            ]
+          },
+          {
+            name: "商品款号",
+            is: "i-input",
+            ils: "kuan"
+          }
+        ],
+        [
+          {
+            name: "商品名称",
+            is: "i-input",
+            ils: "buildName"
+          },
+          {
+            name: "下单时间",
+            is: "Date-picker",
+            ils: "xiaTime"
+          },
+          {
+            name: "支付时间",
+            is: "Date-picker",
+            ils: "zhiTime"
+          }
+        ]
+      ],
+      modelList: {
+        hort: "",
+        name: "",
+        phone: "",
+        type: "",
+        floor: "",
+        builds: "",
+        pin: "",
+        kuan: "",
+        buildName: "",
+        xiaTime: "",
+        zhiTime: ""
+      },
+      val: "",
+      dingType: "",
+      floors: "",
+      store: "",
+      ops:'',
+      pageLength:0,
+      pageCurrent:0,
+      pageSize:10,
+      pageDang:1
+>>>>>>> 5eb593b18684b75de6b3d89d6e23a36c718f0e97
     };
   },
   computed: {
@@ -135,18 +286,25 @@ export default {
     })
   },
   methods: {
+<<<<<<< HEAD
     ...mapMutations("orider", ["orderData"]),
     ...mapActions("orider", ["getOrder","getTab","susList","waitList"]),
+=======
+    ...mapMutations("order", ["orderData"]),
+    ...mapActions("order", ["getOrder", "getTab"]),
+    //全部
+>>>>>>> 5eb593b18684b75de6b3d89d6e23a36c718f0e97
     async getMetho() {
       let res = await getList({
         org_id: 61500,
-        page: 1,
+        page: this.pageDang,
         org_type: 5,
         status: "",
         sort: ""
       });
       let news=res.data.list.map((item,index)=>{
         return {
+<<<<<<< HEAD
             hort:item.number,
             time:item.created_at_str,
             people:item.customer_name,
@@ -158,13 +316,220 @@ export default {
         }
      });
      this.newArr = news;
+=======
+          hort: item.number,
+          time: item.created_at_str,
+          people: item.customer_name,
+          types: item.order_type,
+          shou: item.return_status_str,
+          dan: item.status_str,
+          money: item.pay_amount,
+          done: "查看"
+        };
+      });
+     
+      console.log(this.pageCurrent);
+      this.newArr = news;
+      this.pageLength = res.data.page.totalNum;
+      console.log(this.pageLength);
+
+       
+    },
+    //待发货：
+    async getSd() {
+      let res = await http.getList({
+        org_id: 61500,
+        page: 1,
+        org_type: 5,
+        status: 2,
+        sort: ""
+      });
+      let news = res.data.list.map((item, index) => {
+        return {
+          hort: item.number,
+          time: item.created_at_str,
+          people: item.customer_name,
+          types: item.order_type,
+          shou: item.return_status_str,
+          dan: item.status_str,
+          money: item.pay_amount,
+          done: "查看"
+        };
+      });
+      this.pageLength = res.data.page.totalNum;
+      this.newArr = news;
+    },
+    //代付款
+    async getWait() {
+      let res = await http.getList({
+        org_id: 61500,
+        page: 1,
+        org_type: 5,
+        status: 1,
+        sort: ""
+      });
+      let news = res.data.list.map((item, index) => {
+        return {
+          hort: item.number,
+          time: item.created_at_str,
+          people: item.customer_name,
+          types: item.order_type,
+          shou: item.return_status_str,
+          dan: item.status_str,
+          money: item.pay_amount,
+          done: "查看"
+        };
+      });
+      this.pageLength = res.data.page.totalNum;
+      this.newArr = news;
+    },
+    //待收货：
+    async getSh() {
+      let res = await http.getList({
+        org_id: 61500,
+        page: this.pageDang,
+        org_type: 5,
+        status: 3,
+        sort: ""
+      });
+      let news = res.data.list.map((item, index) => {
+        return {
+          hort: item.number,
+          time: item.created_at_str,
+          people: item.customer_name,
+          types: item.order_type,
+          shou: item.return_status_str,
+          dan: item.status_str,
+          money: item.pay_amount,
+          done: "查看"
+        };
+      });
+      this.pageLength = res.data.page.totalNum;
+      this.newArr = news;
+    },
+    //已完成
+    async getSu() {
+      let res = await http.getList({
+        org_id: 61500,
+        page: this.pageDang,
+        org_type: 5,
+        status: 4,
+        sort: ""
+      });
+      console.log(res.data.list)
+      let news = res.data.list.map((item, index) => {
+        return {
+          hort: item.number,
+          time: item.created_at_str,
+          people: item.customer_name,
+          types: item.order_type,
+          shou: item.return_status_str,
+          dan: item.status_str,
+          money: item.pay_amount,
+          done: "查看"
+        };
+        console.log(news)
+      });
+      this.pageLength = res.data.page.totalNum;
+      this.newArr = news;
+    },
+    //option数据：
+    async getOpt() {
+      let res = await http.getTabList({
+        org_id: 61500,
+        org_type: 5,
+        status: ""
+      });
+      console.log(res.data);
+      this.dingType = res.data.brand;
+      this.floors = res.data.floor;
+      this.store = res.data.store;
+      console.log(this.dingType, "111");
+      console.log(this.floors, "222");
+      console.log(this.store, "3333");
+    },
+    getAll() {
+      this.getMetho();
+      this.pages = 95;
+    },
+    getSend() {
+      this.getSd();
+    },
+    getShou() {
+      this.getSh();
+    },
+    getSus() {
+      this.getSu();
+    },
+    getWest() {
+      this.getWait();
+    },
+    search() {
+      //输入框的值：
+      let arr = [
+        this.modelList.hort,
+        this.modelList.name,
+        this.modelList.phone,
+        this.modelList.type,
+        this.modelList.floor,
+        this.modelList.builds,
+        this.modelList.pin,
+        this.modelList.kuan,
+        this.modelList.buildName,
+        this.modelList.xiaTime,
+        this.modelList.zhiTime
+      ];
+      console.log(arr);
+      //接口中的参数：
+      let obj = {
+        org_id: 61500,
+        page: this.pageDang,
+        org_type: 5,
+        status: "",
+        sort: "",
+        number: this.modelList.hort,
+        delivery_name: this.modelList.name,
+        delivery_tel: this.modelList.phone,
+        order_type: this.modelList.type,
+        floor_id: "",
+        vm_store_id: "",
+        brand_id: "",
+        prod_code: this.modelList.kuan,
+        prod_name: this.modelList.buildName,
+        submit_time: this.modelList.buildName,
+        order_pay_time: this.modelList.xiaTime
+      };
+      console.log(this.ops);
+    },
+    async changepage(index){
+      console.log(index);
+      // var _start = ( index - 1 ) * this.pageSize;
+      // var _end = index * this.pageSize;
+      // this.historyData = this.newArr.slice(_start,_end);
+      this.pageCurrent=index;
+      console.log(this.pageCurrent);
+      this.pageDang = this.pageCurrent;
+      this.getMetho();
+>>>>>>> 5eb593b18684b75de6b3d89d6e23a36c718f0e97
     }
+
+    
   },
   created() {
+<<<<<<< HEAD
     this.getOrder();
     this.getTab();
     this.susList();
     this.waitList();
+=======
+    // this.getOrder();
+    // this.getTab();
+    console.log(this.souLie);
+    // console.log(this.$store.state.order.arr.list)
+    console.log(this.arr);
+
+    
+>>>>>>> 5eb593b18684b75de6b3d89d6e23a36c718f0e97
   },
   mounted() {
      this.getOrder();

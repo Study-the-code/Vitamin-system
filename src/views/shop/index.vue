@@ -9,7 +9,7 @@
 </template>
 
 <script>
-// import './index.scss';
+import './index.scss';
 export default {
   name: "shop"
 };
