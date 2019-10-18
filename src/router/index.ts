@@ -85,7 +85,12 @@ const routes = [
         },{
             path:'/setting/order',
             name:'order',
-            component:()=>import ('../views/setting/order/index.vue')
+            component:()=>import ('../views/setting/order/index.vue'),
+            children:[{
+                path:'/setting/order/order-set',
+                name:'orderSet',
+                component:()=>import ('../views/setting/order/orderDet/index.vue')
+            }]
         }]
     },{
         path:'/member',

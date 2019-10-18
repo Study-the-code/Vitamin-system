@@ -11,12 +11,27 @@
             <span>本月</span>
         </div>
     </div>
+    <p class="m-antv" v-for="item in 3" :key="item">
+      <Antv :oneId="oneId"/>
+    </p>
+       
+         
   </div>
 </template>
 
 <script>
+import Antv from "@/components/antv/index.vue";
 export default {
- name:"statistics"
+ name:"statistics",
+ data(){
+   return {
+     oneId:"one",
+     data:3
+   }
+ },
+ components:{
+   Antv
+ }
 }
 </script>
 
@@ -33,5 +48,9 @@ export default {
   }
   .m-right-btn span{
     margin-left: 8px;
+  }
+ .statistics .m-vntv {
+    width: 500px;
+    height: 300px;
   }
 </style>

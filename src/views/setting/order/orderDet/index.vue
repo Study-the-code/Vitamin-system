@@ -1,11 +1,11 @@
 <template>
     <div>
-       <router-view></router-view>
+      this is ddddd
     </div>
 </template>
 <script>
 export default {
-    name:'setting'
+    name:'settDet'
 }
 </script>
 <style lang="scss" scoped>
