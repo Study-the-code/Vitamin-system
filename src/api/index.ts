@@ -50,9 +50,7 @@ class Http {
         return instance.post('/store/category-delete', params);
     };
 
-    public getTuan = async (params: any) => {
-        return instance.post('/user/list', params);
-    };
+    
     // 楼层数据
     public getfloor = async () => {
         const result = await instance.post('/store/floor-list')
@@ -83,6 +81,17 @@ class Http {
      * 获取操作历史数据
      * 参数：vm_store_id
      */
+
+    public getTuan = async (params: any) => {
+        // return instance.post('/user/list', params);
+        const result =await instance.post('/user/list',{
+            type: 2,
+            page: 1,
+            // status: 0,
+        })
+        return result
+        // const params
+    };
     public getHistory = async (id: any) => {
         const result = await instance.post('/store/get-store-history-list', {
             vm_store_id: id

@@ -44,7 +44,15 @@ export default {
       columns1: [
         {
           title: "头像",
-          key: "imgl"
+          render:(e,params)=>{
+            return e ('img',{
+              attrs:{
+                src:params.row.img,
+                style:"width:100%;"
+              }
+            })
+        
+          }
         },
         {
           title: "姓名",
@@ -60,7 +68,15 @@ export default {
         },
         {
           title: "所属店铺",
-          key: "store_name"
+          key: "store_name",
+           render: (p, params) => {
+            return p("li", [
+              p("li", {
+                type: "person"
+              }),
+              p("strong", params.row.store_name)
+            ]);
+          }
         },
         {
           title: "顾客账号",
@@ -73,8 +89,25 @@ export default {
         {
           title: "操作",
           key: "domain",
-          render: () => {
-            return <a>查看</a>;
+         render: (e, params) => {
+            return e("a", [
+              e(
+                "a",
+                {
+                  props: {
+                    type: "1"
+                  },
+                  on: {
+                    click: () => {
+                      const id = params.row.id;
+                      this.GoDetail(id);
+                    }
+                    
+                  }
+                },
+                "查看"
+              )
+            ]);
           }
         }
       ],
@@ -107,8 +140,25 @@ export default {
         {
           title: "操作",
           key: "domain",
-          render: () => {
-            return <a>查看</a>;
+          render: (e, params) => {
+            return e("a", [
+              e(
+                "a",
+                {
+                  props: {
+                    type: "1"
+                  },
+                  on: {
+                    click: () => {
+                      const id = params.row.id;
+                    //  this.GoDetail(id)
+                    }
+                    
+                  }
+                },
+                "查看"
+              )
+            ]);
           }
         }
       ],
@@ -132,8 +182,24 @@ export default {
         {
           title: "操作",
           key: "domain",
-          render: () => {
-            return <a>查看</a>;
+          render: (e, params) => {
+            return e("a", [
+              e(
+                "a",
+                {
+                  props: {
+                    type: "1"
+                  },
+                  on: {
+                    click: () => {
+                      const id = params.row.id;
+                      // this.GoDetail(id);
+                    } 
+                  }
+                },
+                "查看"
+              )
+            ]);
           }
         }
       ],
@@ -165,24 +231,29 @@ export default {
         }
       ],
       model1: "",
-      // columns3:"",
-      // columns3:""
     };
   },
 
   created() {},
   methods: {
+   
     async getlist() {
       const pagelist = await http.getTuan();
       this.pagelists = pagelist.data.list;
-      // console.log(pagelist.data.list);
     },
     async getll() {
       const jiaose = await http.getjiao();
       this.pagejiao = jiaose.data.roleMap;
       console.log(jiaose.data.list)
     }
+    //    GoDetail(id) {
+    //   this.$router.push({
+    //     path: `/team/shopping-guide/detail/${id}`
+    //   });
+    // }
   },
+
+ 
   mounted() {
     this.getlist();
     this.getll();
@@ -191,4 +262,8 @@ export default {
 </script>
 
 <style>
+/* img{
+  width: 80px;
+  height: 80px;
+} */
 </style>
