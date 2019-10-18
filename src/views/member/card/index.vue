@@ -15,39 +15,37 @@
         <Table :columns="columns1" :data="cardPicture" size="large"></Table>
       </div>
       <div class="card_group" v-if="current===1">
-          <ul v-for="item in messageList" :key="item.id">
-              <li>
-                  <span>{{item.name}}</span>:
-                  <span>必填</span>
-              </li>
-              <li>
-                  <span>选择默认地区</span>：
-                  <span>天津市 天津 北辰区</span>
-              </li>
-          </ul>
-          <div>修改注册信息</div>
+        <ul >
+          <li v-for="item in messageList" :key="item.id">
+            <span class="group-item">{{item.name}}</span>:
+            <span>必填</span>
+          </li>
+          <li>
+            <span class="group-item">选择默认地区</span>：
+            <span>天津市 天津 北辰区</span>
+          </li>
+        </ul>
+        <div class="change">修改注册信息</div>
       </div>
       <div class="card_group" v-if="current===2">
-          <div>
-              <p>{{message.reminder}}</p>
-          </div>
-          <p>
-              用户保存推荐码图片时，在二维码图片下方显示的提示语，最多输入22个汉字
-          </p>
-          <div>
-              <span>修改提示语</span>
-          </div>
+        <div>
+          <p>{{message.reminder}}</p>
+        </div>
+        <p :style="{ color: '#a0a0a0',margin:'15px'}">用户保存推荐码图片时，在二维码图片下方显示的提示语，最多输入22个汉字</p>
+        <div>
+          <span :style="{    color: '#3ec6b6',cursor: 'pointer'}">修改提示语</span>
+        </div>
       </div>
       <div class="card_group" v-if="current===3">
-          <div>
-              <p>{{msg.termsOfUse}}</p>
-          </div>
-          <div>
-              <p>修改使用条款</p>
-          </div>
+        <div>
+          <p :style="{ color: '#a0a0a0',margin:'15px'}">{{msg.termsOfUse}}</p>
+        </div>
+        <div>
+          <p :style="{  color: '#3ec6b6',cursor: 'pointer'}">修改使用条款</p>
+        </div>
       </div>
       <div class="card_group" v-if="current===4">
-          <Table :columns="columns2" :data="shopList"></Table>
+        <Table :columns="columns2" :data="shopList"></Table>
       </div>
     </div>
   </div>
@@ -103,23 +101,27 @@ export default {
           }
         }
       ],
-      columns2:[
-          {
-              title:"CRM门店编码",
-              key:"crm_store_code"
-          },{
-              title:"门店名称",
-              key:"store_name"
-          },{
-              title:"所属城市",
-              key:"city_name"
-          },{
-              title:"门店地址",
-              key:"address"
-          },{
-              title:"联系方式",
-              key:"go",
-               render: (e, params) => {
+      columns2: [
+        {
+          title: "CRM门店编码",
+          key: "crm_store_code"
+        },
+        {
+          title: "门店名称",
+          key: "store_name"
+        },
+        {
+          title: "所属城市",
+          key: "city_name"
+        },
+        {
+          title: "门店地址",
+          key: "address"
+        },
+        {
+          title: "联系方式",
+          key: "go",
+          render: (e, params) => {
             return e("span", [
               e(
                 "span",
@@ -127,83 +129,91 @@ export default {
                   props: {
                     type: "1"
                   },
-                  style:{
-                      color:'#3EC6E6'
+                  style: {
+                    color: "#3EC6E6"
                   }
-                //   on: {
-                //     click: () => {
-                //       const id = params.row.id;
-                //       this.goDetail(id);
-                //     }
-                //   }
+                  //   on: {
+                  //     click: () => {
+                  //       const id = params.row.id;
+                  //       this.goDetail(id);
+                  //     }
+                  //   }
                 },
                 "管理联系方式"
               )
             ]);
           }
-          },{
-              title:"操作",
-              key:"domain",
-              render:(e,params)=>{
-                  return e('div',[
-                      e("span",{
-                          style:{
-                              color:'#3EC6E6'
-                          },
-                          on:{}
-                      },"修改"),'|',
-                      e("span",{
-                          style:{
-                              color:"#3EC6E6",
-                              
-                          },
-                          on:{}
-                      },"删除")
-                  ])
-              }
+        },
+        {
+          title: "操作",
+          key: "domain",
+          render: (e, params) => {
+            return e("div", [
+              e(
+                "span",
+                {
+                  style: {
+                    color: "#3EC6E6"
+                  },
+                  on: {}
+                },
+                "修改"
+              ),
+              "|",
+              e(
+                "span",
+                {
+                  style: {
+                    color: "#3EC6E6"
+                  },
+                  on: {}
+                },
+                "删除"
+              )
+            ]);
           }
+        }
       ]
     };
   },
   methods: {
     tabMethod(index) {
       this.current = index;
-      if(this.current===1){
-        this.getMessage()
-      }else if(this.current===2){
-          this._getMsg()
-          console.log(this.message)
-      }else if(this.current===3){
-          this.useMsg()
-          console.log(this.msg)
-      }else if (this.current===4){
-          this.getshop()
-          this.getCityTree()
-          console.log(this.cityList)
+      if (this.current === 1) {
+        this.getMessage();
+      } else if (this.current === 2) {
+        this._getMsg();
+        console.log(this.message);
+      } else if (this.current === 3) {
+        this.useMsg();
+        console.log(this.msg);
+      } else if (this.current === 4) {
+        this.getshop();
+        this.getCityTree();
+        console.log(this.cityList);
       }
     },
     ...mapActions({
       getcardPicture: "vip/getcardPicture",
-      getMessage:"vip/getMessage",
-      _getMsg:"vip/_getMsg",
-      useMsg:"vip/useMsg",
-      getshop:"vip/getshop",
-      getCityTree:"vip/getCityTree"
+      getMessage: "vip/getMessage",
+      _getMsg: "vip/_getMsg",
+      useMsg: "vip/useMsg",
+      getshop: "vip/getshop",
+      getCityTree: "vip/getCityTree"
     })
   },
   computed: {
     ...mapState({
       cardPicture: state => state.vip.cardPicture.list,
-      messageList:state=> state.vip.messageList.registerForm,
-      message:state=>state.vip.message,
-      msg:state=>state.vip.msg,
-      shopList:state=>state.vip.shopList,
-      cityList:state=>state.vip.cityList
+      messageList: state => state.vip.messageList.registerForm,
+      message: state => state.vip.message,
+      msg: state => state.vip.msg,
+      shopList: state => state.vip.shopList,
+      cityList: state => state.vip.cityList
     })
   },
   mounted() {
     this.getcardPicture();
-
   }
 };
 </script>
@@ -212,6 +222,9 @@ export default {
   width: 100%;
   height: 100%;
   font-size: 14px;
+  background: #fff;
+  margin-top: 24px;
+  padding: 24px 24px 48px;
   .card_left {
     width: 20%;
     height: 100%;
@@ -220,6 +233,7 @@ export default {
     ul li {
       height: 40px;
       line-height: 40px;
+      cursor: pointer;
     }
     .active {
       color: #3ec6b6;
@@ -229,14 +243,17 @@ export default {
   .card_right {
     width: 80%;
     height: 100%;
-    
+
     float: right;
     border-left: 1px #ccc solid;
     .title {
       height: 154px;
+      background: #fff;
       h3 {
         color: rgba(0, 0, 0, 0.85);
         font-weight: 500;
+        margin: 10px;
+        width: 100%;
       }
     }
     .add {
@@ -246,16 +263,34 @@ export default {
       border-radius: 50%;
       color: #fff;
       font-size: 30px;
-      margin-bottom: 24px;
+      margin-top: 24px;
       text-align: center;
       line-height: 30px;
       font-weight: 200;
       cursor: pointer;
+      margin-left: 15px;
     }
     .card_group {
       padding: 24px;
       background: #fff;
       overflow: hidden;
+      ul {
+        padding-left: 24px;
+        li {
+          height: 30px;
+          .group-item {
+            width: 60px;
+            display: inline-block;
+            height: 30px;
+          }
+        }
+      }
+
+      .change{
+            margin-top: 24px;
+             padding-left: 24px;
+            color: #3ec6b6;
+      }
     }
   }
 }

@@ -5,46 +5,46 @@
       <p>批量上传</p>
     </div>
     <div class="qrcore_center">
-       <Form :model="formItem" :label-width="60" inline>
-         <FormItem label="编号">
-            <Input v-model="formItem.input" placeholder="请输入"></Input>
+      <Form :model="formItem" :label-width="80" inline>
+        <FormItem label="编号">
+          <Input v-model="formItem.input" placeholder="请输入"></Input>
         </FormItem>
-         <FormItem label="姓名">
-            <Input v-model="formItem.input" placeholder="请输入"></Input>
+        <FormItem label="姓名">
+          <Input v-model="formItem.input" placeholder="请输入"></Input>
         </FormItem>
-         <FormItem label="电话号码">
-            <Input v-model="formItem.input" placeholder="请输入"></Input>
+        <FormItem label="电话号码">
+          <Input v-model="formItem.input" placeholder="请输入"></Input>
         </FormItem>
-         <FormItem label="会员卡号">
-            <Input v-model="formItem.input" placeholder="请输入"></Input>
+        <FormItem label="会员卡号">
+          <Input v-model="formItem.input" placeholder="请输入"></Input>
         </FormItem>
-        
+
         <FormItem label="员工类型">
-            <Select v-model="formItem.select">
-                <Option value="beijing">专柜员工</Option>
-                <Option value="shanghai">自营员工</Option>
-            </Select>
+          <Select v-model="formItem.select">
+            <Option value="beijing">专柜员工</Option>
+            <Option value="shanghai">自营员工</Option>
+          </Select>
         </FormItem>
-         <FormItem label="部门">
-            <Input v-model="formItem.input" placeholder="请输入"></Input>
+        <FormItem label="部门">
+          <Input v-model="formItem.input" placeholder="请输入"></Input>
         </FormItem>
-         <FormItem label="楼层">
-            <Input v-model="formItem.input" placeholder="请输入"></Input>
+        <FormItem label="楼层">
+          <Input v-model="formItem.input" placeholder="请输入"></Input>
         </FormItem>
-         <FormItem label="区域">
-            <Input v-model="formItem.input" placeholder="请输入"></Input>
+        <FormItem label="区域">
+          <Input v-model="formItem.input" placeholder="请输入"></Input>
         </FormItem>
-         <FormItem label="品牌">
-            <Input v-model="formItem.input" placeholder="请输入"></Input>
+        <FormItem label="品牌">
+          <Input v-model="formItem.input" placeholder="请输入"></Input>
         </FormItem>
         <FormItem>
-            <Button type="primary">查询</Button>
-            <Button style="margin-left: 8px">重置</Button>
+          <Button type="primary">查询</Button>
+          <Button style="margin-left: 8px">重置</Button>
         </FormItem>
-       </Form>
+      </Form>
     </div>
     <div class="qrcore_bottom">
-      <button>+</button>
+      <div class="qrcore_add">+</div>
       <Table ref="selection" :columns="columns1" :data="qrcore"></Table>
     </div>
   </div>
@@ -55,17 +55,17 @@ export default {
   name: "qrcode",
   data() {
     return {
-       formItem: {
-                    input: '',
-                    select: '',
-                    radio: 'male',
-                    checkbox: [],
-                    switch: true,
-                    date: '',
-                    time: '',
-                    slider: [20, 50],
-                    textarea: ''
-                },
+      formItem: {
+        input: "",
+        select: "",
+        radio: "male",
+        checkbox: [],
+        switch: true,
+        date: "",
+        time: "",
+        slider: [20, 50],
+        textarea: ""
+      },
       columns1: [
         {
           title: "编号",
@@ -145,11 +145,15 @@ export default {
                 },
                 "编辑"
               ),
-              e('span',{
-                style:{
-                  color:'#3EC6E6'
+              e(
+                "span",
+                {
+                  style: {
+                    color: "#3EC6E6"
+                  }
                 },
-              },'删除')
+                "删除"
+              )
             ]);
           }
         }
@@ -176,6 +180,9 @@ export default {
 .qrcore_content {
   width: 100%;
   height: 100%;
+      background: #fff;
+    margin-top: 24px;
+    padding: 24px 24px 48px;
   .qrcore_top {
     padding: 24px;
     background: #fff;
@@ -185,6 +192,24 @@ export default {
     padding: 24px;
     background: #fff;
     overflow: hidden;
+  }
+  .qrcore_bottom {
+    .qrcore_add {
+      width: 34px;
+      height: 34px;
+      background: #3ec6b6;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 30px;
+      margin-bottom: 24px;
+      text-align: center;
+      line-height: 30px;
+      font-weight: 200;
+      cursor: pointer;
+    }
+  }
+  .ivu-form-item {
+    width: 300px;
   }
 }
 </style>
