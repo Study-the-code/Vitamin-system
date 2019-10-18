@@ -87,7 +87,26 @@ const routes = [
             name:'order',
             component:()=>import ('../views/setting/order/index.vue')
         }]
-    }, {
+    },{
+        path:'/member',
+        name:'member',
+        component:()=>import ('../views/member/index.vue'),
+        children:[
+            {
+                path:'/member/card',
+                name:'card',
+                component:()=>import ('../views/member/card/index.vue')
+            },{
+                path:'/member/vip-card',
+                name:'vip-card',
+                component:()=>import ('../views/member/vip-card/index.vue')
+            },{
+                path:'/member/qrcode',
+                name:'qrcode',
+                component:()=>import ('../views/member/qrcode/index.vue')
+            }
+        ]
+    } ,{
         path: '/',
         redirect:"/home"
     },

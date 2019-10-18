@@ -1,7 +1,9 @@
 <template>
   <div class="detail">
-    this is detail page
-    <div class="title">{{detailList.name}}</div>
+    <div class="title">
+      <img :src="detailList.r_logo_img" alt />
+      <span>{{detailList.name}}</span>
+    </div>
     <div class="content">
       <div class="left">
         <ul v-for="(item,index) in data" :key="index">
@@ -20,13 +22,13 @@
           <span>{{detailList.address}}</span>
           <h3>所属分类</h3>
           <ul v-for="(it,index) in detailList.category_data" :key="index" class="description">
-            <li>{{it}}</li>
+            <span>{{it}}</span>
           </ul>
           <h3>位置</h3>
           <span>{{detailList.address}}</span>
           <h3>LOGO</h3>
           <span>
-            <img :src="detailList.r_logo_img" alt />
+            <img :src="detailList.r_logo_img" alt :style="{width:'100px',height:'100px'}"/>
           </span>
           <h3>背景图</h3>
           <h3>店铺描述</h3>
@@ -74,7 +76,16 @@
 
           <Button type="error">删除店铺</Button>
         </div>
-        <div class="con" v-else-if="current==5">5</div>
+        <div class="con" v-else-if="current==5">
+          <ul v-for="k in hisorylist" :key="k.time">
+            <li>
+              <span>{{k.title}}</span>
+              <span>{{k.platform}}</span>
+              <span>{{k.time}}</span>
+            </li>
+            <li :style="{color:'#ccc',fontSize:'12px'}">{{k.content}}</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -85,7 +96,7 @@ export default {
   name: "detail",
   data() {
     return {
-      detailList: [],
+      detailList: {},
       data: [
         {
           title: "基本信息",
@@ -146,7 +157,8 @@ export default {
           key: "despriction"
         }
       ],
-      current: 0
+      current: 0,
+      hisorylist: []
     };
   },
   methods: {
@@ -155,25 +167,30 @@ export default {
 
       const { base_info } = result.data;
       this.detailList = base_info;
-
-      console.log(this.detailList);
+      const {}=this.detailList
+    
       return result;
     },
     tab(index) {
       this.current = index;
       const id = this.$route.params.id;
-      
+      if (this.current === 5) {
+       
+        this._getHistory(id);
+      }
     },
     async _getHistory(id) {
       const result = await http.getHistory(id);
-      console.log(result);
+     
+      const { list } = result.data;
+      this.hisorylist = list;
       return result;
     }
   },
   mounted() {
     const id = this.$route.params.id;
     this._getdetail(id);
-    // this._getHistory(id)
+  
   }
 };
 </script>
@@ -188,15 +205,20 @@ export default {
   background: #f8f8f8;
   vertical-align: middle;
   line-height: 100px;
+
+  img {
+    width: 60px;
+    height: 60px;
+  }
 }
 .content {
   width: 100%;
   height: 100%;
 }
 .left {
-  width: 30%;
+  width: 20%;
   height: 100%;
-  border-right: 2px #ccc solid;
+
   float: left;
   ul li {
     height: 50px;
@@ -210,7 +232,7 @@ export default {
   }
 }
 .right {
-  width: 70%;
+  width: 80%;
   float: right;
   height: 100%;
   .name {
@@ -229,8 +251,8 @@ export default {
     display: inline-block;
     height: 30px;
   }
-  .description li {
-    float: left;
+  .description span {
+    // float: left;
     height: 20px;
     width: 50px;
     border: 1px #ccc solid;
@@ -238,6 +260,7 @@ export default {
     font-size: 12px;
     text-align: center;
     line-height: 20px;
+    // display: inline-block;
   }
   //   button {
   //     background: #3ec6b6;
@@ -268,6 +291,8 @@ export default {
         &:nth-child(2) {
           flex: 7;
           text-align: right;
+          margin-right: 80px;
+          color: #3ec6b6;
         }
       }
     }
