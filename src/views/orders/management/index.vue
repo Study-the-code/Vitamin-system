@@ -13,77 +13,40 @@
     </div>
     <div class="bottom">
       <div class="ding">
-        <span class="nav">全部</span>
-        <span class="nav">代付款(46)</span>
-        <span class="nav">待发货(16)</span>
-        <span class="nav">待收货</span>
-        <span class="nav">已完成</span>
+        <span class="nav" @click="getAll">全部</span>
+        <span class="nav" @click="getWest">代付款(46)</span>
+        <span class="nav" @click="getSend">待发货(16)</span>
+        <span class="nav" @click="getShou">待收货</span>
+        <span class="nav" @click="getSus">已完成</span>
       </div>
       <div class="but">
         <div class="but-row">
-          <div class="ant-col">
-            <div>订单号：</div>
-            <div>
-              <i-input :value.sync="value" placeholder="请输入..." style="width: 200px"></i-input>
-            </div>
-          </div>
-          <div class="ant-col">
-            <div>订单号：</div>
-            <div>
-              <i-input :value.sync="value" placeholder="请输入..." style="width: 200px"></i-input>
-            </div>
-          </div>
-          <div class="ant-col">
-            <div>订单号：</div>
-            <div>
-              <i-input :value.sync="value" placeholder="请输入..." style="width: 200px"></i-input>
-            </div>
-          </div>
-          <div class="ant-col">
-            <div>订单号：</div>
-            <div>
-              <i-input :value.sync="value" placeholder="请输入..." style="width: 200px"></i-input>
-            </div>
-          </div>
-          <div class="ant-col">
-            <div>订单号：</div>
-            <div>
-              <i-input :value.sync="value" placeholder="请输入..." style="width: 200px"></i-input>
-            </div>
-          </div>
-          <div class="ant-col">
-            <div>订单号：</div>
-            <div>
-              <i-input :value.sync="value" placeholder="请输入..." style="width: 200px"></i-input>
-            </div>
-          </div>
-          <div class="ant-col">
-            <div>订单号：</div>
-            <div>
-              <i-input :value.sync="value" placeholder="请输入..." style="width: 200px"></i-input>
-            </div>
-          </div>
-          <div class="ant-col">
-            <div>订单号：</div>
-            <div>
-              <i-input :value.sync="value" placeholder="请输入..." style="width: 200px"></i-input>
+          <div class="wert" v-for="(item,index) in souLie" :key="index">
+            <div class="ant-col" v-for="(ules,key) in item" :key="key">
+              <div>{{ules.name}}：</div>
+              <div>
+                <component v-bind:is="ules.is" style="width:200px" v-model="modelList[ules.ils]">
+                  <!-- <i-option v-for="(i,k) in dingType" :value="i.name" :key="k">{{ i.name }}</i-option> -->
+                  <i-option v-for="(i,k) in ules.options" :value="i.name" :key="k">{{ i.name }}</i-option>
+                </component>
+              </div>
             </div>
           </div>
         </div>
         <div class="taber">
           <div class="tep">
-            <i-button style="marginLeft:1110px;background:#3ec6b6;color:#fff">查询</i-button>
-            <i-button style="marginLeft:10px">重置</i-button>
+            <i-button
+              style="background:#3ec6b6;color:#fff;position:absolute;right:140px"
+              @click="this.search"
+            >查询</i-button>
+            <i-button style="position:absolute;right:50px">重置</i-button>
           </div>
           <div class="tabone">
             <i-table :columns="columns1" :data="newArr"></i-table>
           </div>
-<<<<<<< HEAD
-=======
           <div class="btrem">
             <Page :total="pageLength" show-total :current="pageCurrent" @on-change="changepage"></Page>
           </div>
->>>>>>> 5eb593b18684b75de6b3d89d6e23a36c718f0e97
         </div>
       </div>
     </div>
@@ -91,7 +54,7 @@
 </template>
 <script>
 import { mapMutations, mapActions, mapState } from "vuex";
-
+import http from "@/api/index";
 export default {
   props: {},
   components: {},
@@ -131,10 +94,6 @@ export default {
           key: "done"
         }
       ],
-<<<<<<< HEAD
-      value: "",
-      newArr: []
-=======
       newArr: [],
       pages: 2,
       souLie: [
@@ -277,46 +236,28 @@ export default {
       pageCurrent:0,
       pageSize:10,
       pageDang:1
->>>>>>> 5eb593b18684b75de6b3d89d6e23a36c718f0e97
     };
   },
   computed: {
     ...mapState({
-      arr: state => state.order.arr
+      arr: state => state.arr
     })
   },
   methods: {
-<<<<<<< HEAD
-    ...mapMutations("orider", ["orderData"]),
-    ...mapActions("orider", ["getOrder","getTab","susList","waitList"]),
-=======
     ...mapMutations("order", ["orderData"]),
     ...mapActions("order", ["getOrder", "getTab"]),
     //全部
->>>>>>> 5eb593b18684b75de6b3d89d6e23a36c718f0e97
     async getMetho() {
-      let res = await getList({
+      let res = await http.getList({
         org_id: 61500,
         page: this.pageDang,
         org_type: 5,
         status: "",
         sort: ""
       });
-      let news=res.data.list.map((item,index)=>{
+      console.log(res);
+      let news = res.data.list.map((item, index) => {
         return {
-<<<<<<< HEAD
-            hort:item.number,
-            time:item.created_at_str,
-            people:item.customer_name,
-            types:item.order_type,
-            shou:item.return_status_str,
-            dan:item.status_str,
-            money:item.pay_amount,
-            done:'查看'
-        }
-     });
-     this.newArr = news;
-=======
           hort: item.number,
           time: item.created_at_str,
           people: item.customer_name,
@@ -448,7 +389,7 @@ export default {
       console.log(this.floors, "222");
       console.log(this.store, "3333");
     },
-    getAll() {
+getAll() {
       this.getMetho();
       this.pages = 95;
     },
@@ -510,18 +451,11 @@ export default {
       console.log(this.pageCurrent);
       this.pageDang = this.pageCurrent;
       this.getMetho();
->>>>>>> 5eb593b18684b75de6b3d89d6e23a36c718f0e97
     }
 
     
   },
-  created() {
-<<<<<<< HEAD
-    this.getOrder();
-    this.getTab();
-    this.susList();
-    this.waitList();
-=======
+ created() {
     // this.getOrder();
     // this.getTab();
     console.log(this.souLie);
@@ -529,11 +463,22 @@ export default {
     console.log(this.arr);
 
     
->>>>>>> 5eb593b18684b75de6b3d89d6e23a36c718f0e97
   },
-  mounted() {
-     this.getOrder();
-     this.getTab();
+  async mounted() {
+    await this.getOrder();
+    await this.getTab();
+
+    this.getMetho();
+    this.getOpt();
+    //遍历动态组件
+    let das = [];
+    this.souLie.forEach((item, index) => {
+      item.forEach((val, k) => {
+        console.log(val.options);
+        das.push(val.options);
+      });
+    });
+    console.log(das);
   }
 };
 </script>
@@ -586,7 +531,7 @@ export default {
         cursor: pointer;
       }
     }
-    .but {
+     .but {
       width: 100%;
       padding: 24px;
       background: #fff;
@@ -602,16 +547,23 @@ export default {
         display: flex;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
+        display: flex;
         flex-shrink: 4;
         flex-wrap: wrap;
-        justify-content: space-between;
-        .ant-col {
+        .wert {
+          width: 100%;
           display: flex;
-          -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-          width: 25%;
-          line-height: 30px;
-          margin-top: 20px;
+          flex-shrink: 4;
+          flex-wrap: wrap;
+          margin-left: 100px;
+          .ant-col {
+            display: flex;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            width: 25%;
+            line-height: 30px;
+            margin-top: 20px;
+          }
         }
       }
       .taber {
@@ -626,8 +578,19 @@ export default {
           width: 100%;
           margin-top: 30px;
         }
+        .btrem {
+          width: 100%;
+          height: 50px;
+          margin-top: 20px;
+          .ivu-page {
+            position: absolute;
+            right: 50px;
+          }
+        }
       }
     }
   }
 }
 </style>
+
+
