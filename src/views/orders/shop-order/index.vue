@@ -14,8 +14,8 @@
     <div class="bottom">
       <div class="ding">
         <span class="nav" @click="getBoth">全部</span>
-        <span class="nav" @click="getDai">代付款(54)</span>
-        <span class="nav" @click="getFa">待发货(25)</span>
+        <span class="nav" @click="getDai">代付款(56)</span>
+        <span class="nav" @click="getFa">待发货(22)</span>
         <span class="nav" @click="getShou">待收货</span>
         <span class="nav" @click="getZuo">已完成</span>
       </div>
@@ -25,7 +25,7 @@
             <div class="ant-col" v-for="(ules,key) in item" :key="key">
               <div>{{ules.name}}：</div>
               <div>
-                <component v-bind:is="ules.is" style="width:200px" v-model="modelList[ules.ils]" >
+                <component v-bind:is="ules.is" style="width:200px" v-model="modelList[ules.ils]">
                   <!-- <i-option v-for="(i,k) in dingType" :value="i.name" :key="k">{{ i.name }}</i-option> -->
                   <i-option v-for="(i,k) in ules.options" :value="i.name" :key="k">{{ i.name }}</i-option>
                 </component>
@@ -42,7 +42,7 @@
             <i-button style="position:absolute;right:50px">重置</i-button>
           </div>
           <div class="tabone">
-            <i-table :columns="columns1" :data="newArr" on-row-click="handleXiang"></i-table>
+            <i-table :columns="columns1" :data="newArr"></i-table>
           </div>
           <div class="btrem">
             <Page :total="pageLength" show-total :current="pageCur" @on-change="changeFen"></Page>
@@ -85,7 +85,7 @@ export default {
           title: "售后",
           key: "shou"
         },
-        { 
+        {
           title: "货源类型",
           key: "source"
         },
@@ -99,11 +99,30 @@ export default {
         },
         {
           title: "操作",
-          key: "done",
-          render (row, column, index) {
-                return `<i-button type="primary" size="small" @click="show(${index})">查看</i-button>`;
-          }
+          key: "action",
+          width: 150,
+          align: "center",
+          // render(row, column, index) {
+          //   return `<i-button type="primary" size="small" @click="show(${index})">查看</i-button> <i-button type="error" size="small" @click="remove(${index})">删除</i-button>`;
+          // }
+          render:(e,params)=>{
+            return e('span',[
+              e(
+                'span',{
+                  on:{
+                    click:(index)=>{
+                    console.log(params);
+                    const data = params.row;
+                    const ind = params.index;
+                      this.handleCha({data,ind});
+                    }
+                  }
 
+                },
+                "查看"
+              )
+            ])
+          }
         }
       ],
       newArr: [],
@@ -149,7 +168,7 @@ export default {
           {
             name: "订单编号",
             is: "i-input",
-            ils: "floor",
+            ils: "floor"
           },
           {
             name: "货源类型",
@@ -163,7 +182,8 @@ export default {
               {
                 name: "总仓",
                 value: 34162
-              },{
+              },
+              {
                 name: "diancan",
                 value: 34162
               }
@@ -200,7 +220,6 @@ export default {
                 name: "GXG"
               }
             ]
-
           },
           {
             name: "商品款号",
@@ -241,11 +260,11 @@ export default {
       dingType: "",
       floors: "",
       store: "",
-      ops:'',
-      pageLength:0,
-      pageCur:0,
-      pageSize:10,
-      pageQian:1
+      ops: "",
+      pageLength: 0,
+      pageCur: 0,
+      pageSize: 10,
+      pageQian: 1
     };
   },
   computed: {
@@ -259,54 +278,55 @@ export default {
     //全部
     async getAllList() {
       let res = await http.getBuild({
-        org_id:61500,
-        page:1,
-        org_type:5,
-        status:'',
-        sort:''
+        org_id: 61500,
+        page: 1,
+        org_type: 5,
+        status: "",
+        sort: ""
       });
-      console.log(res.data.list,'--------------');
+      console.log(res.data.list, "全部");
       let news = res.data.list.map((item, index) => {
         return {
-          hort: item.main_number,
+          hort: item.sub_number,
           time: item.updated_at_str,
-          stores:item.vm_store_name,
+          stores: item.vm_store_name,
           people: item.customer_name,
           types: item.order_type,
           shou: item.return_status_str,
-          source:item.stock_source_str,
+          source: item.stock_source_str,
           dan: item.status_str,
-          money: item.pay_amount,
-          done: "查看"
+          money: item.pay_amount
+          // done: "查看"
         };
-      });    
+      });
       console.log(this.pageCur);
       this.newArr = news;
+      console.log(this.newArr,'全部')
       this.pageLength = res.data.page.totalNum;
-      console.log(this.pageLength);      
+      console.log(this.pageLength);
     },
     //待发货：
     async getSdList() {
-      let res = await http.getList({
-        org_id:61500,
-        page:1,
-        org_type:5,
-        status:2,
-        sort:''
+      let res = await http.getBuild({
+        org_id: 61500,
+        page: 1,
+        org_type: 5,
+        status: 2,
+        sort: ""
       });
-      console.log(res.data.list)
+      console.log(res.data.list);
       let news = res.data.list.map((item, index) => {
         return {
-          hort: item.number,
+          hort: item.sub_number,
           time: item.updated_at_str,
-          stores:item.vm_store_name,
+          stores: item.vm_store_name,
           people: item.customer_name,
           types: item.order_type,
           shou: item.return_status_str,
-          source:item.stock_source_str,
+          source: item.stock_source_str,
           dan: item.status_str,
-          money: item.pay_amount,
-          done: "查看"
+          money: item.pay_amount
+          // done: "查看"
         };
       });
       this.pageLength = res.data.page.totalNum;
@@ -314,26 +334,26 @@ export default {
     },
     //代付款
     async getWaitList() {
-      let res = await http.getList({
-        org_id:61500,
-        page:1,
-        org_type:5,
-        status:1,
-        sort:''
+      let res = await http.getBuild({
+        org_id: 61500,
+        page: 1,
+        org_type: 5,
+        status: 1,
+        sort: ""
       });
-      console.log(res.data.list,'44444444444')
+      console.log(res.data.list, "代付款");
       let news = res.data.list.map((item, index) => {
         return {
-          hort: item.number,
-          time: item.updated_at_str,
-          stores:item.vm_store_name,
+          hort: item.sub_number,
+          time: item.created_at_str,
+          stores: item.vm_store_name,
           people: item.customer_name,
           types: item.order_type,
           shou: item.return_status_str,
-          source:item.stock_source_str,
+          source: item.stock_source_str,
           dan: item.status_str,
-          money: item.pay_amount,
-          done: "查看"
+          money: item.pay_amount
+          // done: "查看"
         };
       });
       this.pageLength = res.data.page.totalNum;
@@ -341,25 +361,25 @@ export default {
     },
     //待收货：
     async getShList() {
-      let res = await http.getList({
-        org_id:61500,
-        page:1,
-        org_type:5,
-        status:3,
-        sort:''
+      let res = await http.getBuild({
+        org_id: 61500,
+        page: 1,
+        org_type: 5,
+        status: 3,
+        sort: ""
       });
       let news = res.data.list.map((item, index) => {
         return {
-          hort: item.number,
+          hort: item.sub_number,
           time: item.updated_at_str,
-          stores:item.vm_store_name,
+          stores: item.vm_store_name,
           people: item.customer_name,
           types: item.order_type,
           shou: item.return_status_str,
-          source:item.stock_source_str,
+          source: item.stock_source_str,
           dan: item.status_str,
-          money: item.pay_amount,
-          done: "查看"
+          money: item.pay_amount
+          // done: "查看"
         };
       });
       this.pageLength = res.data.page.totalNum;
@@ -367,28 +387,28 @@ export default {
     },
     //已完成
     async getSuList() {
-      let res = await http.getList({
-        org_id:61500,
-        page:1,
-        org_type:5,
-        status:4,
-        sort:''
+      let res = await http.getBuild({
+        org_id: 61500,
+        page: 1,
+        org_type: 5,
+        status: 4,
+        sort: ""
       });
-      console.log(res.data.list)
+      console.log(res.data.list);
       let news = res.data.list.map((item, index) => {
         return {
-          hort: item.number,
+          hort: item.sub_number,
           time: item.updated_at_str,
-          stores:item.vm_store_name,
+          stores: item.vm_store_name,
           people: item.customer_name,
           types: item.order_type,
           shou: item.return_status_str,
-          source:item.stock_source_str,
+          source: item.stock_source_str,
           dan: item.status_str,
-          money: item.pay_amount,
-          done: "查看"
+          money: item.pay_amount
+          // done: "查看"
         };
-        console.log(news)
+        console.log(news);
       });
       this.pageLength = res.data.page.totalNum;
       this.newArr = news;
@@ -396,9 +416,9 @@ export default {
     //option数据：
     async getOpt() {
       let res = await http.getTabList({
-        org_id:61500,
-        org_type:5,
-        status:1
+        org_id: 61500,
+        org_type: 5,
+        status: 1
       });
       console.log(res.data);
       this.dingType = res.data.brand;
@@ -447,7 +467,7 @@ export default {
         org_type: 5,
         status: "",
         sort: "",
-        number: this.modelList.hort,
+        sub_number: this.modelList.hort,
         delivery_name: this.modelList.name,
         delivery_tel: this.modelList.phone,
         order_type: this.modelList.type,
@@ -462,7 +482,7 @@ export default {
       console.log(this.ops);
     },
     //分页：
-    async changeFen(index){
+    async changeFen(index) {
       console.log(index);
       this.pageCur = index;
       console.log(this.pageCur);
@@ -470,12 +490,20 @@ export default {
       this.getAllList();
     },
     //详情：
-    show (index) {
-        this.$Modal.info({
-            title: '用户信息',
-          content: `姓名：${this.data6[index].name}<br>年龄：${this.data6[index].age}<br>地址：${this.data6[index].address}`
-                })
-            },
+    handleCha(obj){
+      console.log(obj);
+      let horts = obj.data.hort;
+      this.getXiang(horts);
+      this.$router.push({
+        path:'/orders/shop-xiang'
+      })
+    },
+    async getXiang(horts){
+      let res = await http.getBuildXiang({
+        sub_order_number:horts
+      })
+      console.log(res.data)
+    }
   },
 
   created() {
@@ -484,8 +512,6 @@ export default {
     console.log(this.souLie);
     // console.log(this.$store.state.order.arr.list)
     console.log(this.arr);
-
-    
   },
   async mounted() {
     // await this.getOrder();

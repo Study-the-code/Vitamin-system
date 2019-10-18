@@ -73,6 +73,14 @@ const routes = [
             path:'/orders/shop-order',
             name:'shop-order',
             component:()=>import ('../views/orders/shop-order/index.vue')
+        },{
+            path:'/orders/shop-xiang',
+            name:'shop-xiang',
+            component:()=>import ('../views/orders/shop-order/xiang.vue')
+        },{
+            path:'/orders/management-xiang',
+            name:'shop-xiang',
+            component:()=>import ('../views/orders/management/xiang.vue') 
         }]
     },{
         path:'/setting',
@@ -87,7 +95,26 @@ const routes = [
             name:'order',
             component:()=>import ('../views/setting/order/index.vue')
         }]
-    }, {
+    },{
+        path:'/member',
+        name:'member',
+        component:()=>import ('../views/member/index.vue'),
+        children:[
+            {
+                path:'/member/card',
+                name:'card',
+                component:()=>import ('../views/member/card/index.vue')
+            },{
+                path:'/member/vip-card',
+                name:'vip-card',
+                component:()=>import ('../views/member/vip-card/index.vue')
+            },{
+                path:'/member/qrcode',
+                name:'qrcode',
+                component:()=>import ('../views/member/qrcode/index.vue')
+            }
+        ]
+    } ,{
         path: '/',
         redirect:"/home"
     },

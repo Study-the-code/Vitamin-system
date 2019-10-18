@@ -12,7 +12,6 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-
 import myselect from "@/components/common/select";
 import http from "@/api/index";
 export default {

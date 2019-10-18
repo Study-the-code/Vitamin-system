@@ -14,8 +14,8 @@
     <div class="bottom">
       <div class="ding">
         <span class="nav" @click="getAll">全部</span>
-        <span class="nav" @click="getWest">代付款(46)</span>
-        <span class="nav" @click="getSend">待发货(16)</span>
+        <span class="nav" @click="getWest">代付款(54)</span>
+        <span class="nav" @click="getSend">待发货(21)</span>
         <span class="nav" @click="getShou">待收货</span>
         <span class="nav" @click="getSus">已完成</span>
       </div>
@@ -90,8 +90,31 @@ export default {
           key: "money"
         },
         {
-          title: "操作",
-          key: "done"
+           title: "操作",
+          key: "action",
+          width: 150,
+          align: "center",
+          // render(row, column, index) {
+          //   return `<i-button type="primary" size="small" @click="show(${index})">查看</i-button> <i-button type="error" size="small" @click="remove(${index})">删除</i-button>`;
+          // }
+          render:(e,params)=>{
+            return e('span',[
+              e(
+                'span',{
+                  on:{
+                    click:(index)=>{
+                    console.log(params);
+                    const data = params.row;
+                    const ind = params.index;
+                      this.handleCha({data,ind});
+                    }
+                  }
+
+                },
+                "查看"
+              )
+            ])
+          }
         }
       ],
       newArr: [],
@@ -389,7 +412,7 @@ export default {
       console.log(this.floors, "222");
       console.log(this.store, "3333");
     },
-    getAll() {
+getAll() {
       this.getMetho();
       this.pages = 95;
     },
@@ -443,20 +466,29 @@ export default {
       console.log(this.ops);
     },
     async changepage(index){
-      console.log(index);
-      // var _start = ( index - 1 ) * this.pageSize;
-      // var _end = index * this.pageSize;
-      // this.historyData = this.newArr.slice(_start,_end);
       this.pageCurrent=index;
-      console.log(this.pageCurrent);
       this.pageDang = this.pageCurrent;
       this.getMetho();
+    }
+     //详情：
+    handleCha(obj){
+      console.log(obj);
+      let horts = obj.data.hort;
+      this.getXiang(horts);
+      this.$router.push({
+        path:'/orders/shop-xiang'
+      })
+    },
+    async getXiang(horts){
+      let res = await http.getBuildXiang({
+        sub_order_number:horts
+      })
+      console.log(res.data)
     }
 
     
   },
-
-  created() {
+ created() {
     // this.getOrder();
     // this.getTab();
     console.log(this.souLie);
@@ -532,7 +564,7 @@ export default {
         cursor: pointer;
       }
     }
-    .but {
+     .but {
       width: 100%;
       padding: 24px;
       background: #fff;
@@ -593,3 +625,5 @@ export default {
   }
 }
 </style>
+
+

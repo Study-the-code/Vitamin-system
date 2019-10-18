@@ -51,7 +51,7 @@ export default {
   },
   data() {
     return {
-      value: "",
+      // value: "",
       list: [],
       pagelists:[],
       pagets:[],
@@ -188,7 +188,8 @@ export default {
           label: "Canberra"
         }
       ],
-      model1: ""
+      model1: "",
+      value:""
     };
   },
     
@@ -197,12 +198,12 @@ export default {
     async getlist(){
       const pagelist= await http.getTuan()
       this.pagelists=pagelist.data.list
-      
+      console.log(pagelist.data.list)
     },
     async getls(){
       const pagetsl=await http.getmiao()
       this.pagets=pagetsl.data.list
-      console.log(pagetsl)
+      // console.log(pagetsl.data.list)
     }
   },
   mounted() {
