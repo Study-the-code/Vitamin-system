@@ -8,30 +8,18 @@
             <myselects :selectcon="cityList" />
           </div>
 
-           <div class="bottom">
+          <div class="bottom">
             <Table :columns="columns1" :data="pagelists"></Table>
-            <!-- <Page :total="100" show-total /> -->
           </div>
         </TabPane>
         <TabPane label="邀请中(3)" name="name2">
-          <!-- <div class="select">
-            <myselects :selectcon="cityList"/>
-          </div> -->
- 
           <div class="bottom">
-            <Table :columns="columns3"  :data="pagelists"></Table>
+            <Table :columns="columns3" :data="pagelists"></Table>
           </div>
         </TabPane>
-        <TabPane label="角色描述" name="name3" >
-          <!-- <div class="select">
-            <myselects :selectcon="cityList"/>
-          </div> -->
-           <!-- v-for="item in pagelists" :key="item.id" -->
-          <div class="bottom" >
-            <Table :columns="columns2" :data="pagets">
-             
-            </Table>
-            
+        <TabPane label="角色描述" name="name3">
+          <div class="bottom">
+            <Table :columns="columns2" :data="pagets"></Table>
           </div>
         </TabPane>
       </Tabs>
@@ -40,10 +28,9 @@
 </template>
 
 <script>
-
 import myselects from "@/components/common/selectlist";
-import http from "@/api/index"
-// console.log(http,'---------------')
+import http from "@/api/index";
+
 export default {
   name: "about",
   components: {
@@ -53,13 +40,21 @@ export default {
     return {
       // value: "",
       list: [],
-      pagelists:[],
-      pagets:[],
+      pagelists: [],
+      pagets: [],
       columns1: [
         {
           title: "头像",
-          key: "imgl"
+          render: (e, params) => {
+            return e("img", {
+              attrs: {
+                src: params.row.img,
+                style: "width:100%;height:100%;border-radius:100%;"
+              }
+            });
+          }
         },
+
         {
           title: "姓名",
           key: "user_name"
@@ -69,13 +64,20 @@ export default {
           key: "mobile"
         },
         {
-          title:"角色",
-          key:"role"
+          title: "角色",
+          key: "role"
         },
         {
           title: "所属店铺",
           key: "store_name",
-          
+          render: (p, params) => {
+            return p("li", [
+              p("li", {
+                type: "person"
+              }),
+              p("strong", params.row.store_name)
+            ]);
+          }
         },
         {
           title: "顾客账号",
@@ -88,15 +90,12 @@ export default {
         {
           title: "操作",
           key: "domain",
-          render: ()=>{
-            return <a>
-                查看
-            </a>
+          render: () => {
+            return <a>查看</a>;
           }
         }
       ],
       columns3: [
-        
         {
           title: "姓名",
           key: "user_name"
@@ -106,13 +105,12 @@ export default {
           key: "mobile"
         },
         {
-          title:"角色",
-          key:"role"
+          title: "角色",
+          key: "role"
         },
         {
           title: "所属店铺",
-          key: "store_name",
-          
+          key: "store_name"
         },
         {
           title: "邀请者",
@@ -125,23 +123,19 @@ export default {
         {
           title: "操作",
           key: "domain",
-          render: ()=>{
-            return <a>
-                查看
-            </a>
+          render: () => {
+            return <a>查看</a>;
           }
         }
       ],
       columns2: [
-    
         {
-          title:"角色",
-          key:"role_name"
+          title: "角色",
+          key: "role_name"
         },
         {
           title: "权限",
-          key: "description",
-          
+          key: "description"
         },
         {
           title: "店铺权限",
@@ -154,14 +148,12 @@ export default {
         {
           title: "操作",
           key: "domain",
-          render: ()=>{
-            return <a>
-                查看
-            </a>
+          render: () => {
+            return <a>查看</a>;
           }
         }
       ],
-  
+
       cityList: [
         {
           value: "New York",
@@ -189,27 +181,27 @@ export default {
         }
       ],
       model1: "",
-      value:""
+      value: ""
     };
   },
-    
+
   created() {},
   methods: {
-    async getlist(){
-      const pagelist= await http.getTuan()
-      this.pagelists=pagelist.data.list
-      console.log(pagelist.data.list)
+    async getlist() {
+      const pagelist = await http.getTuan();
+      this.pagelists = pagelist.data.list;
+      console.log(pagelist.data.list);
     },
-    async getls(){
-      const pagetsl=await http.getmiao()
-      this.pagets=pagetsl.data.list
+    async getls() {
+      const pagetsl = await http.getmiao();
+      this.pagets = pagetsl.data.list;
       // console.log(pagetsl.data.list)
     }
   },
   mounted() {
     this.getlist();
-    this.getls()
-  },
+    this.getls();
+  }
 };
 </script>
 
