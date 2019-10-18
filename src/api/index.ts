@@ -21,15 +21,9 @@ class Http {
         }))
         return result
     };
-    //订单管理：
     public getList = (params: any) => {
         return instance.post('/order/get-main-order-list', params)
     };
-    //店铺管理：
-    public getBuild = (params: any) => {
-        return instance.post('order/get-sub-order-list', params)
-    };
-    
     public getMenu = async (params: any) => {
         let newparams = qs.stringify(params);
         return instance.post('/privilege/get-privilege-set', newparams);
@@ -40,17 +34,10 @@ class Http {
     public getbrand = async () => {
         return instance.post('/store/brand-list')
     };
-<<<<<<< HEAD
-<<<<<<< HEAD
-    //店铺设置的tab表格数据
-    public categoryList =async ()=>{
-=======
     //设置的tab表格
     public categoryList = async () => {
->>>>>>> 857cc5a9a1a2a29277ae69c9f9798762498b504b
         return instance.post('/store/category-list')
     }
-<<<<<<< HEAD
     public floorList =async ()=>{
         return instance.post('/store/floor-list')
     }
@@ -66,18 +53,6 @@ class Http {
     public getTuan = async (params: any) => {
         return instance.post('/user/list', params);
     };
-=======
-   
->>>>>>> dfaa0f8ca7961dc27df3d06fff28ddd8f1caf73f
-=======
-    //设置的tab表格
-    public categoryList =async ()=>{
-        return instance.post('/store/category-list')
-    }
-    public getTuan = async (params: any) => {
-        return instance.post('/user/list', params);
-    };
->>>>>>> 5eb593b18684b75de6b3d89d6e23a36c718f0e97
     // 楼层数据
     public getfloor = async () => {
         const result = await instance.post('/store/floor-list')
@@ -98,15 +73,9 @@ class Http {
      * 全部店铺跳详情
      * 参数 :id
      */
-<<<<<<< HEAD
     public getAllshopdetail = async (id: any) => {
         const result = await instance.post('/store/get-store-info', {
             id: id
-=======
-    public getAllshopdetail=async(id:any)=>{
-        const result=await instance.post('/store/get-store-info',{
-            id:id
->>>>>>> 5eb593b18684b75de6b3d89d6e23a36c718f0e97
         })
         return result
     };
@@ -114,45 +83,18 @@ class Http {
      * 获取操作历史数据
      * 参数：vm_store_id
      */
-<<<<<<< HEAD
     public getHistory = async (id: any) => {
         const result = await instance.post('/store/get-store-history-list', {
             vm_store_id: id
         })
         return result
     }
-<<<<<<< HEAD
     public gethome = async (params: any) => {
         const result = await instance.post('page-manage/list', {
-=======
-
-    public getTuan = async (params: any) => {
-        const result =  await instance.post('/user/list',{
-            type: 1,
-            page: 1,
-            status: 0,
-        })
-        return result
-    };
-
-    public gethome=async(params:any)=>{
-        const result=await instance.post('page-manage/list',{
->>>>>>> dfaa0f8ca7961dc27df3d06fff28ddd8f1caf73f
-=======
-    public getHistory=async (id:any)=>{
-        const result=await instance.post('/store/get-store-history-list',{
-            vm_store_id:id
-        })
-        return result
-    }
-    public gethome=async(params:any)=>{
-        const result=await instance.post('page-manage/list',{
->>>>>>> 5eb593b18684b75de6b3d89d6e23a36c718f0e97
             page: 1
         })
         return result
     }
-<<<<<<< HEAD
     public getjiao = async (params: any) => {
         const result = await instance.post('/user/role-select-list', {
             role_type: 2
@@ -162,23 +104,11 @@ class Http {
     }
     public getmiao = async (params: any) => {
         const result = await instance.post('/role/role-desc-list', {
-=======
-    public getjiao=async(params:any)=>{
-        const result=await instance.post('/user/role-select-list',{
-            role_type: 2
-        })
-        return result
-        
-    }
-    public getmiao=async(params:any)=>{
-        const result=await instance.post('/role/role-desc-list',{
->>>>>>> 5eb593b18684b75de6b3d89d6e23a36c718f0e97
             mall_id: 61500,
             type: 1,
             page: 1
         })
         return result
-<<<<<<< HEAD
     };
     /**
      * 会员
@@ -237,9 +167,6 @@ class Http {
     public dragging = async (params:any) => {
         const result = await instance.post('/vm-staff/list',params)
         return result
-=======
-        
->>>>>>> 5eb593b18684b75de6b3d89d6e23a36c718f0e97
     }
 
 }

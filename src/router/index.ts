@@ -87,7 +87,6 @@ const routes = [
             name:'order',
             component:()=>import ('../views/setting/order/index.vue')
         }]
-<<<<<<< HEAD
     },{
         path:'/member',
         name:'member',
@@ -108,9 +107,6 @@ const routes = [
             }
         ]
     } ,{
-=======
-    }, {
->>>>>>> 5eb593b18684b75de6b3d89d6e23a36c718f0e97
         path: '/',
         redirect:"/home"
     },
