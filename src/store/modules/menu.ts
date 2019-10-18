@@ -10,6 +10,7 @@ const mutations = {
 const actions = {
  async getMenuData({commit}:any,payload:any){
    let res= await http.getMenu(payload);
+   console.log(res)
    await commit("setMenuData",res.data)      
   }
 }

@@ -23,7 +23,7 @@
             ref="side_menu"
             :active-name="activeMenuName"
             :open-names="openMenuName"
-            theme="dark"
+            theme="light"
             width="auto"
             :class="menuitemClasses"
             @on-select="choosedMenu"
@@ -37,11 +37,20 @@
                 </template>
                 <MenuItem
                   :name="child.name"
-                  v-for="(child,child_index) in menu._data"
+                   v-for="(child,child_index) in menu._data"
                   :key="child_index"
                 >
-                  <Icon :size="16" :type="child.icon"></Icon>
-                  {{child.name}}
+                <template v-if="child._data.length">
+                  <Submenu :name="child.name" class="m-left">
+                    <template  slot="title">
+                      {{child.name}}
+                    </template>
+                      <MenuItem v-for="k in child._data" :name="k.name" :key="k.id">
+                           {{k.name}}
+                      </MenuItem>
+                  </Submenu>
+                </template>
+                  <span v-else>{{child.name}}</span>
                 </MenuItem>
               </Submenu>
               <MenuItem :name="menu.name" v-if="!menu._data.length" :key="menu.id">
@@ -73,13 +82,13 @@
               <Dropdown placement="right-start" :key="menu.name">
                 <Button style="width: 85px;margin-left: -5px;padding:10px 0;" type="text">
                   <Icon :size="25" color="#fff" type="md-list" v-if="menu._data.length"></Icon>
-                   <Icon :size="25" color="#fff" type="ios-paper" v-else></Icon>
+                  <Icon :size="25" color="#fff" type="ios-paper" v-else></Icon>
                 </Button>
                 <DropdownMenu style="width: 200px;" slot="list">
                   <DropdownItem :name="menu.name">
                     <div style="display:flex;align-items:center;">
-                      <Icon :size="16"  type="md-list" v-if="menu._data.length"></Icon>
-                      <Icon :size="16"  type="ios-paper" v-else></Icon>
+                      <Icon :size="16" type="md-list" v-if="menu._data.length"></Icon>
+                      <Icon :size="16" type="ios-paper" v-else></Icon>
                       <span style="padding-left:10px;">{{ menu.name }}</span>
                     </div>
                   </DropdownItem>
@@ -147,9 +156,9 @@
           >
             <!--保存组件状态到内存，避免重新渲染-->
             <transition name="fade" mode="out-in">
-                <keep-alive>
-              <router-view />
-            </keep-alive>
+              <keep-alive>
+                <router-view />
+              </keep-alive>
             </transition>
           </Content>
         </Layout>
@@ -159,7 +168,7 @@
 </template>
 <script>
 import { mapActions, mapState, mapMutations } from "vuex";
-import './common/style.scss'
+import "./common/style.scss";
 export default {
   data() {
     return {
@@ -459,29 +468,26 @@ export default {
       //根据name查找对应的菜单对象
       let menu = null;
       this.menuData.forEach(_menu => {
-        if (_menu.name === name) {
+        if (_menu.name === name&&!_menu._data.length) {
+          console.log(_menu,"111111111111111")
           // 只有不在tags数组中的元素才能设置num
-          if (!_menu._level === 2) {
-            _menu.status = tags_last_num + 1;
-          }
+          console.log(_menu._data.length,"333333")
           menu = _menu;
+          return ;
         } else if (_menu._data.length) {
           _menu._data.forEach(child => {
-            if (child.name == name) {
+            if (child._data.length) {
               // 只有不在tags数组中的元素才能设置num
-              if (!_menu.showInTags) {
-                child.num = tags_last_num + 1;
-              }
-              menu = child;
-              child.showInTags = true;
-              child.choosed = true;
-            } else {
-              child.choosed = false;
+               child._data.forEach(item=>{
+                if(item.name===name){
+                   menu=item
+                }
+               })   
+            } else if(child.name===name){
+               menu=child
             }
           });
-        } else {
-          _menu.choosed = false;
-        }
+        } 
       });
       this.$router.push(`${menu.url}`);
     },
@@ -497,6 +503,15 @@ export default {
 .ivu-menu::-webkit-scrollbar {
   width: 0 !important;
 }
+.m-left /deep/ .ivu-menu-submenu-title{
+  padding:0 !important;
+}
+ .m-left  /deep/ .ivu-menu-item{
+   padding: 24px 0 0px 10px !important
+ }
+ .m-left /deep/ .ivu-menu-item-selected:hover{
+   background: #363e4f !important
+ }
 .logo img {
   width: 30px;
 }
@@ -512,13 +527,13 @@ export default {
   overflow-x: hidden;
   overflow-y: scroll;
 }
-
 .ivu-layout.ivu-layout-has-sider {
   height: 100%;
 }
 .ivu-layout-sider {
   background: #fff;
 }
+
 .ivu-layout-header {
   height: 100px;
   line-height: 18px;
