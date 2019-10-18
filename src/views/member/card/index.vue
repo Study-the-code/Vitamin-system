@@ -8,8 +8,8 @@
     <div class="card_right">
       <div class="title">
         <h3>{{list[current].title}}</h3>
-        <div class="add" v-if="current===0">+</div>
-        <div class="add" v-else-if="current===4">+</div>
+        <div class="add" v-if="current===0" @click="value1 = true">+</div>
+        <div class="add" v-else-if="current===4" @click="value1 = true">+</div>
       </div>
       <div class="card_group" v-if="current===0">
         <Table :columns="columns1" :data="cardPicture" size="large"></Table>
@@ -25,7 +25,7 @@
             <span>天津市 天津 北辰区</span>
           </li>
         </ul>
-        <div class="change">修改注册信息</div>
+        <div class="change" @click="value1 = true">修改注册信息</div>
       </div>
       <div class="card_group" v-if="current===2">
         <div>
@@ -33,7 +33,7 @@
         </div>
         <p :style="{ color: '#a0a0a0',margin:'15px'}">用户保存推荐码图片时，在二维码图片下方显示的提示语，最多输入22个汉字</p>
         <div>
-          <span :style="{    color: '#3ec6b6',cursor: 'pointer'}">修改提示语</span>
+          <span :style="{    color: '#3ec6b6',cursor: 'pointer'}" @click="value1 = true">修改提示语</span>
         </div>
       </div>
       <div class="card_group" v-if="current===3">
@@ -41,13 +41,18 @@
           <p :style="{ color: '#a0a0a0',margin:'15px'}">{{msg.termsOfUse}}</p>
         </div>
         <div>
-          <p :style="{  color: '#3ec6b6',cursor: 'pointer'}">修改使用条款</p>
+          <p :style="{  color: '#3ec6b6',cursor: 'pointer'}" @click="value1 = true">修改使用条款</p>
         </div>
       </div>
       <div class="card_group" v-if="current===4">
         <Table :columns="columns2" :data="shopList"></Table>
       </div>
     </div>
+    <Drawer title="Basic Drawer" :closable="false" v-model="value1">
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+    </Drawer>
   </div>
 </template>
 <script>
@@ -56,6 +61,7 @@ export default {
   name: "card",
   data() {
     return {
+       value1: false,
       list: [
         {
           title: "会员卡图案",

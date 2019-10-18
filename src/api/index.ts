@@ -129,12 +129,24 @@ class Http {
      *              商品门店
      *  /membership-setting/mall-store-list
      *      绑定银行卡设置
+     * 
      *  /member/member-setting
+     *  删除
+     * /member/member-setting
+     * member/member-grade-del
      *      自拖二维码管理
      *  /vm-staff/list
      *  post请求
      *  参数：    page: 1
                 page_size: 10
+                            上传（upload）
+                            /vm-staff/template-download
+                            POST 请求
+
+                            /vm-staff/upload-list?page=1&page_size=10
+                            GET 请求
+                            page: 1
+                            page_size: 10
      */
     public getCardbgList = async () => {
         const result = await instance.post('/membership-setting/card-bg-list')
@@ -166,6 +178,20 @@ class Http {
     };
     public dragging = async (params:any) => {
         const result = await instance.post('/vm-staff/list',params)
+        return result
+    };
+    public Download=async ()=>{
+        const result=await instance.post('/vm-staff/template-download')
+        return result
+    };
+    public Upload=async (params:any)=>{
+        const result=await instance.get('/vm-staff/upload-list',params)
+        return result
+    };
+    public Delete=async(id:any)=>{
+        const result=await instance.post('member/member-grade-del',{
+            id:id
+        })
         return result
     }
 

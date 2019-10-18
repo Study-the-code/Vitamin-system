@@ -96,6 +96,7 @@ const routes = [
                 path:'/member/card',
                 name:'card',
                 component:()=>import ('../views/member/card/index.vue')
+               
             },{
                 path:'/member/vip-card',
                 name:'vip-card',
@@ -104,6 +105,11 @@ const routes = [
                 path:'/member/qrcode',
                 name:'qrcode',
                 component:()=>import ('../views/member/qrcode/index.vue')
+              
+            }, {
+                path:'/member/qrcode/upload',
+                name:'upload',
+                component:()=>import ('../views/member/qrcode/upload/index.vue')
             }
         ]
     } ,{

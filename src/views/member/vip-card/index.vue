@@ -9,12 +9,12 @@
       <div class="des">顾客可以在个人中心绑定会员卡。绑定会员卡方法：顾客输入会员卡手机号，维他命会访问商场CRM获取顾客会员卡信息。</div>
       <div class="service-setting">
         <h4>客服中心电话</h4>
-        <p>点击添加客服中心电话</p>
+        <p @click="addiphone" title="添加客服电话">点击添加客服中心电话</p>
       </div>
       <div class="dividing-line"></div>
       <div class="vip-card-setting">
         <p class="title">设置会员卡背景图</p>
-        <div class="add">+</div>
+        <div class="add" @click="changeVip">+</div>
         <Table :columns="columns1" :data="membersetList" size="large"></Table>
         <p class="tip">提示：卡片图案建议尺寸： 690像素 * 100像素 分辨率72</p>
         <div class="open-vip-card">
@@ -23,14 +23,22 @@
         </div>
       </div>
     </div>
+    <Modal v-model="modal1" :title="title" @on-ok="ok" @on-cancel="cancel">
+      <p>Content of dialog</p>
+      <p>Content of dialog</p>
+      <p>Content of dialog</p>
+    </Modal>
   </div>
 </template>
 <script>
 import { mapState, mapActions } from "vuex";
+import http from '@/api/index'
 export default {
   name: "vip-card",
   data() {
     return {
+      modal1: false,
+      title:"",
       columns1: [
         {
           title: "会员等级编码",
@@ -62,7 +70,12 @@ export default {
                   style: {
                     color: "#3EC6E6"
                   },
-                  on: {}
+                  on: {
+                    click:()=>{
+                      const id=params.row.id
+                        this.vipMessage(id)
+                    }
+                  }
                 },
                 "编辑"
               ),
@@ -73,14 +86,18 @@ export default {
                   style: {
                     color: "#3EC6E6"
                   },
-                  on: {}
+                  on: {
+                    click:(params)=>{
+                      this.remove()
+                    }
+                  }
                 },
                 "删除"
               )
             ]);
           }
         }
-      ]
+      ],
     };
   },
   computed: {
@@ -91,7 +108,34 @@ export default {
   methods: {
     ...mapActions({
       getBindbank: "vip/getBindbank"
-    })
+    }),
+    ok() {
+      this.$Message.info("Clicked ok");
+
+    },
+    cancel() {
+      this.$Message.info("Clicked cancel");
+    },
+    
+   async remove(id){
+      const res= await http.Delete(id)
+     if(res.code===200){
+       this.$Message.info("删除成功！");
+     }
+      
+    },
+    addiphone(){
+      this.modal1=true
+      this.title="修改客服中心电话"
+    },
+    changeVip(){
+      this.modal1=true
+      this.title="会员卡信息设置"
+    },
+    vipMessage(id){
+      this.modal1=true
+      this.title="会员卡信息设置"
+    }
   },
   mounted() {
     this.getBindbank();

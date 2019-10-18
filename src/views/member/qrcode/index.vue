@@ -2,7 +2,7 @@
   <div class="qrcore_content">
     <div class="qrcore_top">
       <h4>自拓二维码管理</h4>
-      <p>批量上传</p>
+      <p @click="goupload()">批量上传</p>
     </div>
     <div class="qrcore_center">
       <Form :model="formItem" :label-width="80" inline>
@@ -44,9 +44,14 @@
       </Form>
     </div>
     <div class="qrcore_bottom">
-      <div class="qrcore_add">+</div>
+      <div class="qrcore_add" @click="modal1 = true">+</div>
       <Table ref="selection" :columns="columns1" :data="qrcore"></Table>
     </div>
+    <Modal v-model="modal1" title="Common Modal dialog box title" @on-ok="ok" @on-cancel="cancel">
+      <p>Content of dialog</p>
+      <p>Content of dialog</p>
+      <p>Content of dialog</p>
+    </Modal>
   </div>
 </template>
 <script>
@@ -55,6 +60,7 @@ export default {
   name: "qrcode",
   data() {
     return {
+      modal1: false,
       formItem: {
         input: "",
         select: "",
@@ -168,7 +174,17 @@ export default {
   methods: {
     ...mapActions({
       getqrcode: "vip/getqrcode"
-    })
+    }),
+    ok() {
+      this.$Message.info("Clicked ok");
+    },
+    cancel() {
+      this.$Message.info("Clicked cancel");
+    },
+    goupload(){
+      this.$router.push('/member/qrcode/upload')
+      console.log(1)
+    }
   },
   mounted() {
     this.getqrcode();
@@ -180,9 +196,9 @@ export default {
 .qrcore_content {
   width: 100%;
   height: 100%;
-      background: #fff;
-    margin-top: 24px;
-    padding: 24px 24px 48px;
+  background: #fff;
+  margin-top: 24px;
+  padding: 24px 24px 48px;
   .qrcore_top {
     padding: 24px;
     background: #fff;
