@@ -43,6 +43,7 @@ class Http {
 >>>>>>> 857cc5a9a1a2a29277ae69c9f9798762498b504b
         return instance.post('/store/category-list')
     }
+<<<<<<< HEAD
     public floorList =async ()=>{
         return instance.post('/store/floor-list')
     }
@@ -58,6 +59,9 @@ class Http {
     public getTuan = async (params: any) => {
         return instance.post('/user/list', params);
     };
+=======
+   
+>>>>>>> dfaa0f8ca7961dc27df3d06fff28ddd8f1caf73f
     // 楼层数据
     public getfloor = async () => {
         const result = await instance.post('/store/floor-list')
@@ -94,8 +98,23 @@ class Http {
         })
         return result
     }
+<<<<<<< HEAD
     public gethome = async (params: any) => {
         const result = await instance.post('page-manage/list', {
+=======
+
+    public getTuan = async (params: any) => {
+        const result =  await instance.post('/user/list',{
+            type: 1,
+            page: 1,
+            status: 0,
+        })
+        return result
+    };
+
+    public gethome=async(params:any)=>{
+        const result=await instance.post('page-manage/list',{
+>>>>>>> dfaa0f8ca7961dc27df3d06fff28ddd8f1caf73f
             page: 1
         })
         return result

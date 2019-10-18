@@ -5,9 +5,8 @@
       <Tabs value="name1">
         <TabPane label="员工管理" name="name1">
           <div class="select">
-            <myselects :selectcon="cityList" />
+            <myselects :selectcon="cityList" :data="cityList"/>
           </div>
-
           <div class="bottom">
             <Table :columns="columns1" :data="pagelists"></Table>
           </div>
@@ -165,7 +164,9 @@ export default {
           label: "Canberra"
         }
       ],
-      model1: ""
+      model1: "",
+      // columns3:"",
+      // columns3:""
     };
   },
 
@@ -174,12 +175,13 @@ export default {
     async getlist() {
       const pagelist = await http.getTuan();
       this.pagelists = pagelist.data.list;
-      console.log(pagelist.data.list);
+      // console.log(pagelist.data.list);
     },
     async getll() {
       const jiaose = await http.getjiao();
       this.pagejiao = jiaose.data.roleMap;
-      console.log(jiaose.data.roleMap);
+      
+      console.log(jiaose.data.list)
     }
   },
   mounted() {
