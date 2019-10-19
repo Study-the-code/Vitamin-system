@@ -73,6 +73,14 @@ const routes = [
             path:'/orders/shop-order',
             name:'shop-order',
             component:()=>import ('../views/orders/shop-order/index.vue')
+        },{
+            path:'/orders/shop-xiang',
+            name:'shop-xiang',
+            component:()=>import ('../views/orders/shop-order/xiang.vue')
+        },{
+            path:'/orders/management-xiang',
+            name:'shop-xiang',
+            component:()=>import ('../views/orders/management/xiang.vue') 
         }]
     },{
         path:'/setting',
@@ -108,7 +116,7 @@ const routes = [
                 component:()=>import ('../views/member/vip-card/index.vue')
             },{
                 path:'/member/qrcode',
-                name:'qrcode',
+                name:'qrcode', 
                 component:()=>import ('../views/member/qrcode/index.vue')
               
             }, {

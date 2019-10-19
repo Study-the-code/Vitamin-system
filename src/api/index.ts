@@ -21,9 +21,19 @@ class Http {
         }))
         return result
     };
+    //订单管理
     public getList = (params: any) => {
         return instance.post('/order/get-main-order-list', params)
     };
+    //店铺订单
+    public getBuild = (params: any) => {
+        return instance.post('order/get-sub-order-list', params)
+    };
+    //店铺订单-详情：
+    public getBuildXiang = (params: any) => {
+        return instance.post('order/get-sub-order-info', params)
+    };
+    
     public getMenu = async (params: any) => {
         let newparams = qs.stringify(params);
         return instance.post('/privilege/get-privilege-set', newparams);
@@ -48,6 +58,10 @@ class Http {
      //删除table数据
      public categoryDelete = async (params: any) => {
         return instance.post('/store/category-delete', params);
+    };
+
+    public getTuan = async (params: any) => {
+        return instance.post('/user/list', params);
     };
 
     
@@ -82,7 +96,7 @@ class Http {
      * 参数：vm_store_id
      */
 
-    public getTuan = async (params: any) => {
+    public getTuans = async (params: any) => {
         // return instance.post('/user/list', params);
         const result =await instance.post('/user/list',{
             type: 2,

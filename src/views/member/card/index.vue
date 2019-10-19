@@ -249,7 +249,6 @@ export default {
   .card_right {
     width: 80%;
     height: 100%;
-
     float: right;
     border-left: 1px #ccc solid;
     .title {

@@ -224,7 +224,6 @@ export default {
     async _getbrend() {
       const result = await http.getbrand();
       const { data } = result;
-
       this.list = data;
       return result;
     },
